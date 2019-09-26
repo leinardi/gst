@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2020 Roberto Leianrdi -->
+<component type="desktop-application">
+    <id>com.leinardi.gst.desktop</id>
+
+    <!-- <translation type="gettext">trg</translation> -->
+    <name>GnomeStressTest</name>
+    <developer_name>Roberto Leinardi</developer_name>
+    <summary>System utility designed to stress and monitoring various hardware components</summary>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>GPL-3.0-or-later</project_license>
+    <description>
+        <p>GST is a GTK system utility designed to stress and monitoring various hardware components like CPU and RAM.
+        </p>
+    </description>
+    <launchable type="desktop-id">com.leinardi.gst.desktop</launchable>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://gitlab.com/leinardi/gwe/raw/master/art/screenshot-1.png</image>
+        </screenshot>
+    </screenshots>
+    <categories>
+        <category>Utility</category>
+    </categories>
+    <url type="homepage">https://gitlab.com/leinardi/gst</url>
+    <url type="bugtracker">https://gitlab.com/leinardi/gst/issues</url>
+    <update_contact>roberto@leinardi.com</update_contact>
+    <releases>
+        <release date="2020-01-25" version="0.5.0">
+            <description>
+                <ul>
+                    <li>Initial release</li>
+                </ul>
+            </description>
+        </release>
+    </releases>
+    <content_rating type="oars-1.1"/>
+</component>

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=GnomeStressTest
+Comment=System utility designed to stress and monitoring various hardware components
+Exec=@bindir@/gst %U
+Icon=com.leinardi.gst
+Terminal=false
+Type=Application
+StartupNotify=true
+MimeType=
+Categories=Utility;GTK;GNOME;
+Keywords=GST;stress;benchmark;monitor;

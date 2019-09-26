@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=GnomeStressTest
+# TODO: We could include the full path here but Meson requires
+#       newer GLib to generate files for GResource
+TryExec=gst
+Exec=gst --gapplication-service
+Type=Application
+NoDisplay=true
+Name[en_US]=com.leinardi.gst.service.desktop

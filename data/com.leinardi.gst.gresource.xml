@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+    <gresource prefix="/com/leinardi/gst">
+        <file compressed="true">com.leinardi.gst.service.desktop</file>
+
+        <file preprocess="xml-stripblanks">ui/main.glade</file>
+        <file preprocess="xml-stripblanks">ui/preferences.glade</file>
+
+        <!--<file preprocess="xml-stripblanks">icons/com.leinardi.gst.svg</file>-->
+        <!--<file preprocess="xml-stripblanks">icons/com.leinardi.gst-symbolic.svg</file>-->
+
+    </gresource>
+</gresources>
