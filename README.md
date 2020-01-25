@@ -88,6 +88,8 @@ gst
 ## ℹ️ TODO
 
 - [ ] Add RAM specific tests
+- [ ] Get a better icon
+- [ ] Preselect first used RAM bank
 
 ## ⌨️ Command line options
 
@@ -132,12 +134,6 @@ dependencies.
  
 ### (K/X)Ubuntu 18.04 or newer
 See [Install from source](https://gitlab.com/leinardi/gst#kxubuntu-1810-or-newer-dependencies)
-
-### Fedora 28+ (outdated, please let me know if new dependencies are needed)
-Install [(K)StatusNotifierItem/AppIndicator Support](https://extensions.gnome.org/extension/615/appindicator-support/)
-
-### Arch Linux
-The list of all the dependencies is available here: https://aur.archlinux.org/packages/gst/
 
 ### Python dependencies
 ```bash
