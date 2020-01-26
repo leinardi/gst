@@ -30,6 +30,7 @@
             <description>
                 <ul>
                     <li>Fixed error when OEM specific DMI type is present on the dmidecode output</li>
+                    <li>Fixed Hardware monitor values having up to 15 decimals for some users</li>
                 </ul>
             </description>
         </release>
