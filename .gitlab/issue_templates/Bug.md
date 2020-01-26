@@ -6,7 +6,7 @@ Put an x inside the [] like this: [x] to mark the checkbox.
 -->
 ### Step 1: Are you in the right place?
 - [] I have verified there are no duplicate active or recent bugs, questions, or requests
-- [] I have verified that I am using the latest version of GnomeStressTest (GST)
+- [] I have verified that I am using the latest version of GtkStressTesting (GST)
 
 ### Step 2: Describe your environment
  - GST version: `?`

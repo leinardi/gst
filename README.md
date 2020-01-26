@@ -1,4 +1,4 @@
-# GnomeStressTest (GST)
+# GtkStressTesting (GST)
 GST is a GTK system utility designed to stress and monitoring various hardware components like CPU and RAM.
 
 ## 💡 Features
