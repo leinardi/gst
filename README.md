@@ -175,7 +175,7 @@ feel free to open an issue on the [issue tracker](https://gitlab.com/leinardi/gs
 Thanks to:
 
  - Colin Ian King for the [stress-ng](https://kernel.ubuntu.com/git/cking/stress-ng.git/) CLI tool
- - The999eagle for maintaining the [AUR package](https://aur.archlinux.org/packages/gst/)
+ - @999eagle for maintaining the [AUR package](https://aur.archlinux.org/packages/gst/)
  - @tim74 for maintaining the [COPR package](https://copr.fedorainfracloud.org/coprs/atim/gst/)
  - all the people that helped testing and reported bugs
 
