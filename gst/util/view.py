@@ -184,19 +184,19 @@ def format_cache_sets(cache: Optional[Cache]) -> Optional[str]:
 
 def format_feature_type_value(value: float, feature_type: FeatureType) -> str:
     if feature_type == FeatureType.IN:
-        return f"{value} V"
+        return f"{value:.3f} V"
     if feature_type == FeatureType.FAN:
         return f"{round(value)} RPM"
     if feature_type == FeatureType.TEMP:
         return f"{round(value)} °C"
     if feature_type == FeatureType.POWER:
-        return f"{value} W"
+        return f"{value:.1f} W"
     if feature_type == FeatureType.ENERGY:
-        return f"{value} J"
+        return f"{value:.1f} J"
     if feature_type == FeatureType.CURR:
-        return f"{value} A"
+        return f"{value:.1f} A"
     if feature_type == FeatureType.HUMIDITY:
-        return f"{value} %"
+        return f"{round(value)} %"
     if feature_type == FeatureType.INTRUSION:
         return f"{value}"
     if feature_type == FeatureType.BEEP_ENABLE:

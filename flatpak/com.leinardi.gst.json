@@ -38,8 +38,8 @@
         {
           "type": "git",
           "url": "https://gitlab.com/leinardi/gst.git",
-          "tag": "0.6.0",
-          "commit": "416a32aaf1e0aa256d7f66edbc6cee7a8bfa99e2"
+          "tag": "0.6.1",
+          "commit": "f9a4b920f2e6519d79f37297332a57401a74792d"
         }
       ]
     }

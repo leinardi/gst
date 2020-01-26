@@ -73,7 +73,7 @@ class DmiParse:
         self.dmi_data: Dict[str, Dict[str, Union[str, int]]] = {}
         self._parse(text_output)
 
-    def get_type(self, dmi_type: DmiType) -> List[Dict]:
+    def get_type(self, dmi_type: int) -> List[Dict]:
         result: List[Dict[str, Union[str, int]]] = []
         for entry in self.dmi_data.values():
             if entry['DMIType'] == dmi_type:
@@ -105,7 +105,7 @@ class DmiParse:
             dmi_handle = handle_data[0]
 
             self.dmi_data[dmi_handle] = {}
-            self.dmi_data[dmi_handle]["DMIType"] = DmiType(int(handle_data[1]))
+            self.dmi_data[dmi_handle]["DMIType"] = int(handle_data[1])
             self.dmi_data[dmi_handle]["DMISize"] = int(handle_data[2])
 
             #  Okay, we know 2nd line == name

@@ -445,6 +445,7 @@ class MainView(MainViewInterface):
                                         value=value,
                                         inverted=True,
                                         mode=Gtk.LevelBarMode.CONTINUOUS)
+                self._remove_level_bar_offsets(levelbar)
                 levelbar.set_orientation(Gtk.Orientation.VERTICAL)
                 levelbar.set_vexpand(True)
                 label = Gtk.Label(f"{index + 1}")
