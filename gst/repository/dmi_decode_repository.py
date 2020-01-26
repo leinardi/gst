@@ -47,7 +47,7 @@ class DmiDecodeRepository:
             raise RuntimeError(f"Error executing dmidecode (exit code {result[0]}): {result[2]}")
 
         dmi = DmiParse(result[1])
-        dmi_entry_list = dmi.get_type(DmiType.MEMORY_DEVICE)
+        dmi_entry_list = dmi.get_type(DmiType.MEMORY_DEVICE.value)
         memory_bank_info_list = []
         for entry in dmi_entry_list:
             mem_info = MemoryBankInfo()
@@ -64,7 +64,7 @@ class DmiDecodeRepository:
         if memory_bank_info_list:
             system_info.memory_bank_info_list = memory_bank_info_list
 
-        dmi_entry_list = dmi.get_type(DmiType.PROCESSOR)
+        dmi_entry_list = dmi.get_type(DmiType.PROCESSOR.value)
         for entry in dmi_entry_list:
             package = self._get_entry_value('Upgrade', entry)
             if package is not None:
