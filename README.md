@@ -48,12 +48,12 @@ Install the `gst` package from the AUR using your favourite helper, for example 
 ### Install from source code
 #### Dependencies for (K/X)Ubuntu 18.10 or newer
 ```bash
-sudo apt install git meson python3-pip libcairo2-dev libgirepository1.0-dev libglib2.0-dev libdazzle-1.0-dev gir1.2-gtksource-3.0 gir1.2-appindicator3-0.1 python3-gi-cairo appstream-util
+sudo apt install appstream-util gir1.2-gtksource-3.0 git libcairo2-dev libgirepository1.0-dev libglib2.0-dev meson python3-gi-cairo python3-pip stress-ng
 ```
 
 #### Dependencies for Fedora 28 or newer
 ```bash
-dnf install desktop-file-utils git gobject-introspection-devel gtk3-devel libappstream-glib libdazzle libnotify meson python3-cairocffi python3-devel python3-pip redhat-rpm-config
+dnf install desktop-file-utils git gobject-introspection-devel gtk3-devel libappstream-glib meson python3-cairocffi python3-devel python3-pip redhat-rpm-config stress-ng
 ```
 
 #### Clone project and install
@@ -91,9 +91,10 @@ gst
 
 ## ℹ️ TODO
 
-- [ ] Add RAM specific tests
-- [ ] Get a better icon
 - [ ] Preselect first used RAM bank
+- [ ] Add RAM specific stress tests
+- [ ] Get a better icon
+
 
 ## ⌨️ Command line options
 
@@ -101,7 +102,6 @@ gst
   |---------------------------|-------------------------------------------|:------:|:-------:|
   |-v, --version              |Show the app version                       |    x   |    x    |
   |--debug                    |Show debug messages                        |    x   |    x    |
-  |--hide-window              |Start with the main window hidden          |    x   |    x    |
   |--autostart-on             |Enable automatic start of the app on login |    x   |         |
   |--autostart-off            |Disable automatic start of the app on login|    x   |         |
 
@@ -175,6 +175,8 @@ feel free to open an issue on the [issue tracker](https://gitlab.com/leinardi/gs
 Thanks to:
 
  - Colin Ian King for the [stress-ng](https://kernel.ubuntu.com/git/cking/stress-ng.git/) CLI tool
+ - The999eagle for maintaining the [AUR package](https://aur.archlinux.org/packages/gst/)
+ - @tim74 for maintaining the [COPR package](https://copr.fedorainfracloud.org/coprs/atim/gst/)
  - all the people that helped testing and reported bugs
 
 <!--## 📰 Media coverage 
