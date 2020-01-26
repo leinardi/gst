@@ -1,0 +1,3 @@
+[submodule "flatpak"]
+	path = flatpak
+	url = https://github.com/flathub/com.leinardi.gst.git

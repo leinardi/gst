@@ -31,7 +31,7 @@
                 <ul>
                     <li>Fixed error when OEM specific DMI type is present on the dmidecode output</li>
                     <li>Fixed Hardware monitor values having up to 15 decimals for some users</li>
-                    <li>Fixed Core usage LebelBar changing colors due to default offsets</li>
+                    <li>Fixed Core usage LevelBar changing colors due to default offsets</li>
                 </ul>
             </description>
         </release>
