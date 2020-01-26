@@ -41,6 +41,10 @@ flatpak run com.leinardi.gst
 #### Arch Linux
 Install the `gst` package from the AUR using your favourite helper, for example `yay -S gst`.
 
+#### Fedora
+[COPR package](https://copr.fedorainfracloud.org/coprs/atim/gst/): `sudo dnf copr enable atim/gst -y && sudo dnf install gst`
+
+
 ### Install from source code
 #### Dependencies for (K/X)Ubuntu 18.10 or newer
 ```bash
