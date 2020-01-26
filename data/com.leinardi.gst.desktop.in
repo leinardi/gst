@@ -8,4 +8,4 @@ Type=Application
 StartupNotify=true
 MimeType=
 Categories=Utility;GTK;GNOME;
-Keywords=GST;stress;benchmark;monitor;
+Keywords=GST;stress;benchmark;monitoring;
