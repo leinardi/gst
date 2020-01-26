@@ -26,6 +26,13 @@
     <url type="bugtracker">https://gitlab.com/leinardi/gst/issues</url>
     <update_contact>roberto@leinardi.com</update_contact>
     <releases>
+        <release date="2020-01-26" version="0.6.0">
+            <description>
+                <ul>
+                    <li>Name changed to GtkStressTesting</li>
+                </ul>
+            </description>
+        </release>
         <release date="2020-01-25" version="0.5.0">
             <description>
                 <ul>
