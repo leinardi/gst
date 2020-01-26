@@ -26,11 +26,12 @@
     <url type="bugtracker">https://gitlab.com/leinardi/gst/issues</url>
     <update_contact>roberto@leinardi.com</update_contact>
     <releases>
-         <release date="2020-01-26" version="next">
+        <release date="2020-01-26" version="next">
             <description>
                 <ul>
                     <li>Fixed error when OEM specific DMI type is present on the dmidecode output</li>
                     <li>Fixed Hardware monitor values having up to 15 decimals for some users</li>
+                    <li>Fixed Core usage LebelBar changing colors due to default offsets</li>
                 </ul>
             </description>
         </release>
