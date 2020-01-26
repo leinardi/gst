@@ -1,5 +1,5 @@
 # GtkStressTesting (GST)
-GST is a GTK system utility designed to stress and monitoring various hardware components like CPU and RAM.
+GST is a GTK system utility designed to stress and monitor various hardware components like CPU and RAM.
 
 ## 💡 Features
 <img src="/data/icons/hicolor/48x48@2x/apps/com.leinardi.gst.png" width="96" align="right" hspace="0" />
