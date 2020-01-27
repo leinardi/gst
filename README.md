@@ -48,12 +48,12 @@ Install the `gst` package from the AUR using your favourite helper, for example 
 ### Install from source code
 #### Dependencies for (K/X)Ubuntu 18.10 or newer
 ```bash
-sudo apt install appstream-util gir1.2-gtksource-3.0 git libcairo2-dev libgirepository1.0-dev libglib2.0-dev meson python3-gi-cairo python3-pip stress-ng
+sudo apt install appstream-util dmidecode gir1.2-gtksource-3.0 git libcairo2-dev libgirepository1.0-dev libglib2.0-dev meson python3-gi-cairo python3-pip stress-ng
 ```
 
 #### Dependencies for Fedora 28 or newer
 ```bash
-dnf install desktop-file-utils git gobject-introspection-devel gtk3-devel libappstream-glib meson python3-cairocffi python3-devel python3-pip redhat-rpm-config stress-ng
+dnf install desktop-file-utils dmidecode git gobject-introspection-devel gtk3-devel libappstream-glib meson python3-cairocffi python3-devel python3-pip redhat-rpm-config stress-ng
 ```
 
 #### Clone project and install
