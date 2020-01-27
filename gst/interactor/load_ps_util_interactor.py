@@ -23,7 +23,7 @@ from rx import Observable
 from gst.model.system_info import SystemInfo
 from gst.repository.ps_util_repository import PsUtilRepository
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 @singleton
@@ -33,5 +33,5 @@ class LoadPsUtilInteractor:
         self._psutil_repository = psutil_repository
 
     def execute(self, system_info: SystemInfo) -> Observable:
-        LOG.debug("LoadPsUtilInteractor.refresh()")
+        _LOG.debug("LoadPsUtilInteractor.refresh()")
         return rx.defer(lambda _: rx.just(self._psutil_repository.refresh(system_info)))

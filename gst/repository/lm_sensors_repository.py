@@ -25,7 +25,7 @@ from gst.model.system_info import SystemInfo
 from gst.util import sensors
 from gst.util.concurrency import synchronized_with_attr
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 @singleton
@@ -37,7 +37,7 @@ class LmSensorsRepository:
     @synchronized_with_attr("_lock")
     def refresh(self, system_info: SystemInfo) -> SystemInfo:
         sensors.init()
-        LOG.debug(f"libsensor version: {sensors.VERSION}")
+        _LOG.debug(f"libsensor version: {sensors.VERSION}")
         for chip in sensors.ChipIterator():
             chip_name = sensors.chip_snprintf_name(chip)
             for feature in sensors.FeatureIterator(chip):

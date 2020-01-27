@@ -28,7 +28,7 @@ from gst.repository.stress_ng_repository import PATH_SYS_SYSTEM
 from gst.util.concurrency import synchronized_with_attr
 
 PATH_SYS_CPU = PATH_SYS_SYSTEM + "/cpu"
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 @singleton
@@ -43,9 +43,9 @@ class SysDevicesCacheRepository:
 
     @synchronized_with_attr("_lock")
     def refresh(self, system_info: SystemInfo) -> SystemInfo:
-        LOG.debug("refresh %s/cpu*/cache", PATH_SYS_CPU)
+        _LOG.debug("refresh %s/cpu*/cache", PATH_SYS_CPU)
         if not self._has_sys_devices_cache():
-            LOG.warning("%s not found", os.path.join(PATH_SYS_CPU, "cpu0", "cache"))
+            _LOG.warning("%s not found", os.path.join(PATH_SYS_CPU, "cpu0", "cache"))
             return system_info
 
         for physical in system_info.cpu_info.physical_package_id_list:

@@ -23,7 +23,7 @@ from rx import Observable
 from gst.model.system_info import SystemInfo
 from gst.repository.lm_sensors_repository import LmSensorsRepository
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 @singleton
@@ -33,5 +33,5 @@ class LoadLmSensorsInteractor:
         self._lm_sensors_repository = lm_sensors_repository
 
     def execute(self, system_info: SystemInfo) -> Observable:
-        LOG.debug("LoadLmSensorsInteractor.refresh()")
+        _LOG.debug("LoadLmSensorsInteractor.refresh()")
         return rx.defer(lambda _: rx.just(self._lm_sensors_repository.refresh(system_info)))

@@ -26,7 +26,7 @@ from gst.util.dmidecode import DmiParse, DmiType
 from gst.util.linux import is_root
 from gst.util.subprocess import run_and_get_stdout
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 @singleton
@@ -41,7 +41,7 @@ class DmiDecodeRepository:
         if not is_root():
             cmd.insert(0, 'pkexec')
         result = run_and_get_stdout(cmd)
-        LOG.debug(f"Exit code: {result[0]}. {result[1]}\n{result[2]}")
+        _LOG.debug(f"Exit code: {result[0]}. {result[1]}\n{result[2]}")
 
         if result[0] != 0:
             raise RuntimeError(f"Error executing dmidecode (exit code {result[0]}): {result[2]}")

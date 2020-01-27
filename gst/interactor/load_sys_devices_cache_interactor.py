@@ -23,7 +23,7 @@ from rx import Observable
 from gst.model.system_info import SystemInfo
 from gst.repository.sys_devices_cache_repository import SysDevicesCacheRepository
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 @singleton
@@ -33,5 +33,5 @@ class LoadSysDevicesCacheInteractor:
         self._sys_devices_cache_repository = sys_devices_cache_repository
 
     def execute(self, system_info: SystemInfo) -> Observable:
-        LOG.debug("LoadSysDevicesCacheInteractor.refresh()")
+        _LOG.debug("LoadSysDevicesCacheInteractor.refresh()")
         return rx.defer(lambda _: rx.just(self._sys_devices_cache_repository.refresh(system_info)))

@@ -37,7 +37,7 @@ from gst.view.preferences_view import PreferencesView
 from gst.conf import APP_PACKAGE_NAME, APP_NAME, APP_VERSION, APP_SOURCE_URL
 from gst.presenter.main_presenter import MainPresenter, MainViewInterface
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 _CORE_USAGE_MAX_PER_ROW = 16
 
 
@@ -53,7 +53,7 @@ class MainView(MainViewInterface):
                  settings_interactor: SettingsInteractor,
                  system_info: SystemInfo
                  ) -> None:
-        LOG.debug('init MainView')
+        _LOG.debug('init MainView')
         self._presenter: MainPresenter = presenter
         self._preferences_view = preferences_view
         self._presenter.main_view = self
@@ -287,7 +287,7 @@ class MainView(MainViewInterface):
         self._cpu_bugs_dialog.show_all()
 
     def init_system_info(self) -> None:
-        LOG.debug("view init_system_info")
+        _LOG.debug("view init_system_info")
         self._update_cpu_info(self._system_info.cpu_info, init=True)
         self._update_mobo_info()
         self._update_clocks(init=True)
@@ -297,7 +297,7 @@ class MainView(MainViewInterface):
         self._update_memory()
 
     def refresh_system_info(self) -> None:
-        LOG.debug('view system_info')
+        _LOG.debug('view system_info')
         self._update_cpu_usage()
         self._update_mem_usage()
         self._update_clocks()
@@ -368,11 +368,11 @@ class MainView(MainViewInterface):
 
     def _update_cpu_info(self, cpu_info: CpuInfo, init: bool = False) -> None:
         if not cpu_info:
-            LOG.error("CpuInfo is None")
+            _LOG.error("CpuInfo is None")
             return
 
         if init:
-            LOG.debug("view cpu init")
+            _LOG.debug("view cpu init")
 
             self._setup_physical_package_combobox(cpu_info)
 
@@ -609,9 +609,9 @@ class MainView(MainViewInterface):
             if label is not None:
                 label.set_sensitive(text is not None)
             else:
-                LOG.error("label %s not found!", label_name)
+                _LOG.error("label %s not found!", label_name)
         else:
-            LOG.error("entry %s not found!", entry_name)
+            _LOG.error("entry %s not found!", entry_name)
 
     def _set_levelbar_with_label_text(self,
                                       name: str,
@@ -631,9 +631,9 @@ class MainView(MainViewInterface):
             if label is not None:
                 label.set_sensitive(text is not None)
             else:
-                LOG.error("label %s not found!", label_name)
+                _LOG.error("label %s not found!", label_name)
         else:
-            LOG.error("levelbar %s not found!", levelbar_name)
+            _LOG.error("levelbar %s not found!", levelbar_name)
 
     def _set_entries_with_label_text(self, base_name: str, text_dict: Dict[str, Optional[str]]) -> None:
         all_none: bool = True
@@ -649,7 +649,7 @@ class MainView(MainViewInterface):
             label: Gtk.Label = self.__getattribute__(label_name)
             label.set_sensitive(not all_none)
         else:
-            LOG.error(f"label {label_name} not found!")
+            _LOG.error(f"label {label_name} not found!")
 
     def _set_label_text(self, name: str, text: Optional[str]) -> None:
         label_name = f"_{name}_label"
@@ -658,7 +658,7 @@ class MainView(MainViewInterface):
             label.set_sensitive(text is not None)
             label.set_text(text if text is not None else '')
         else:
-            LOG.error(f"label {label_name} not found!")
+            _LOG.error(f"label {label_name} not found!")
 
     @staticmethod
     def _set_entry_text(label: Gtk.Entry, text: Optional[str], *args: Any) -> None:

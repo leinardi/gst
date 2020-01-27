@@ -23,7 +23,7 @@ from injector import singleton, inject
 from gst.conf import APP_ID
 from gst.util.view import get_default_application
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 @singleton

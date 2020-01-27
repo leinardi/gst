@@ -18,7 +18,7 @@ import logging
 
 from injector import singleton, inject
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 @singleton
