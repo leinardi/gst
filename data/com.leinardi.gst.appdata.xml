@@ -6,11 +6,11 @@
     <!-- <translation type="gettext">trg</translation> -->
     <name>GtkStressTesting</name>
     <developer_name>Roberto Leinardi</developer_name>
-    <summary>System utility designed to stress and monitoring various hardware components</summary>
+    <summary>System utility designed to stress and monitor various hardware components</summary>
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>GPL-3.0-or-later</project_license>
     <description>
-        <p>GST is a GTK system utility designed to stress and monitoring various hardware components like CPU and RAM.
+        <p>GST is a GTK system utility designed to stress and monitor various hardware components like CPU and RAM.
         </p>
     </description>
     <launchable type="desktop-id">com.leinardi.gst.desktop</launchable>
@@ -26,10 +26,17 @@
     <url type="bugtracker">https://gitlab.com/leinardi/gst/issues</url>
     <update_contact>roberto@leinardi.com</update_contact>
     <releases>
+        <release date="2020-01-26" version="next">
+            <description>
+                <ul>
+                    <li>Added emoji to sensor feature types (⚡, ️🌡, 💧,...)</li>
+                </ul>
+            </description>
+        </release>
         <release date="2020-01-26" version="0.6.1">
             <description>
                 <ul>
-                    <li>Fixed error when OEM specific DMI type is present on the dmidecode output</li>
+                    <li>Fixed error when OEM specific DMI type is present on the `dmidecode` output</li>
                     <li>Fixed Hardware monitor values having up to 15 decimals for some users</li>
                     <li>Fixed Core usage LevelBar changing colors due to default offsets</li>
                 </ul>

@@ -1,8 +1,14 @@
+Version next
+============
+Released: 2020-01-26
+
+ * Added emoji to sensor feature types (⚡, ️🌡, 💧,...)
+
 Version 0.6.1
 =============
 Released: 2020-01-26
 
- * Fixed error when OEM specific DMI type is present on the dmidecode output
+ * Fixed error when OEM specific DMI type is present on the `dmidecode` output
  * Fixed Hardware monitor values having up to 15 decimals for some users
  * Fixed Core usage LevelBar changing colors due to default offsets
 
