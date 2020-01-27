@@ -16,6 +16,7 @@
 # along with gst.  If not, see <http://www.gnu.org/licenses/>.
 import datetime
 import logging
+import math
 from typing import Optional, Any, Dict, List, Tuple
 
 from gi.repository.Gst import MessageType
@@ -435,11 +436,12 @@ class MainView(MainViewInterface):
 
     def _update_cpu_usage(self) -> None:
         if not self._cpu_core_usage_cores_levelbars:
-            row_count = (len(self._system_info.cpu_usage.cores) // _CORE_USAGE_MAX_PER_ROW)
-            if row_count:
-                self._cpu_core_usage_grid.set_property("height-request", row_count * 60)
+            core_count = len(self._system_info.cpu_usage.cores)
+            row_count = math.ceil(core_count / _CORE_USAGE_MAX_PER_ROW)
+            self._cpu_core_usage_grid.set_property("height-request", row_count * 64)
+            cores_per_row = math.ceil(core_count / row_count)
             for index, value in enumerate(self._system_info.cpu_usage.cores):
-                top = (index // _CORE_USAGE_MAX_PER_ROW) * 2
+                top = (index // cores_per_row) * 2
                 levelbar = Gtk.LevelBar(min_value=0,
                                         max_value=100,
                                         value=value,
@@ -451,8 +453,8 @@ class MainView(MainViewInterface):
                 label = Gtk.Label(f"{index + 1}")
                 self._cpu_core_usage_cores_labels.insert(index, label)
                 self._cpu_core_usage_cores_levelbars.insert(index, levelbar)
-                self._cpu_core_usage_grid.attach(levelbar, index % _CORE_USAGE_MAX_PER_ROW, top, 1, 1)
-                self._cpu_core_usage_grid.attach(label, index % _CORE_USAGE_MAX_PER_ROW, top + 1, 1, 1)
+                self._cpu_core_usage_grid.attach(levelbar, index % cores_per_row, top, 1, 1)
+                self._cpu_core_usage_grid.attach(label, index % cores_per_row, top + 1, 1, 1)
                 self._window.show_all()
         else:
             for index, value in enumerate(self._system_info.cpu_usage.cores):

@@ -30,6 +30,7 @@
             <description>
                 <ul>
                     <li>Added emoji to sensor feature types (⚡, ️🌡, 💧,...)</li>
+                    <li>Improved core usage indicator creation algorithm</li>
                 </ul>
             </description>
         </release>
