@@ -155,6 +155,7 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Some information require root privileges to be retrieved</property>
                 <property name="image">read_all_button_image</property>
                 <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_read_all_button_clicked" swapped="no"/>
@@ -442,7 +443,7 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                   <object class="GtkLabel" id="stress_bopsust_label">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="tooltip_text" translatable="yes">Total bogo operations per second based on cumulative user and system time. This is the real bogo ops rate of the system taking into consideration the actual time execution time of the stressor across all the processors. Generally this will decrease as one adds more concurrent stressors due to contention on cache, memory, execution units, buses and I/O devices.</property>
+                                    <property name="tooltip_text" translatable="yes">Total bogo operations per second based on cumulative user and system time. This is the real bogo ops rate of the system taking into consideration the actual execution time of the stressor across all the processors. Generally this will decrease as one adds more concurrent stressors due to contention on cache, memory, execution units, buses and I/O devices.</property>
                                     <property name="halign">end</property>
                                     <property name="label" translatable="yes">BOPSUST</property>
                                     <property name="justify">right</property>
@@ -2099,6 +2100,9 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                 <property name="can_focus">False</property>
                                 <property name="column_spacing">4</property>
                                 <property name="column_homogeneous">True</property>
+                                <child>
+                                  <placeholder/>
+                                </child>
                                 <child>
                                   <placeholder/>
                                 </child>
