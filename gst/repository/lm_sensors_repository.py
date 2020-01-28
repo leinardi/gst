@@ -37,7 +37,6 @@ class LmSensorsRepository:
     @synchronized_with_attr("_lock")
     def refresh(self, system_info: SystemInfo) -> SystemInfo:
         sensors.init()
-        _LOG.debug(f"libsensor version: {sensors.VERSION}")
         for chip in sensors.ChipIterator():
             chip_name = sensors.chip_snprintf_name(chip)
             for feature in sensors.FeatureIterator(chip):
@@ -52,7 +51,13 @@ class LmSensorsRepository:
                 additional_values: List[str] = []
                 for subfeature in subfeatures:
                     short_name = subfeature.name[skipname:].decode("utf-8")
-                    value = sensors.get_value(chip, subfeature.number)
+                    try:
+                        value = sensors.get_value(chip, subfeature.number)
+                    except Exception as ex:
+                        _LOG.warning(
+                            f"Unable to read "
+                            f"{chip.path.decode('utf-8')}/{subfeature.name.decode('utf-8')} ({chip_name})")
+                        value = None
                     if short_name == 'input':
                         item_value = value
                     else:

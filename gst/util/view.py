@@ -182,7 +182,9 @@ def format_cache_sets(cache: Optional[Cache]) -> Optional[str]:
     return ("%d sets" % cache.number_of_sets) if cache and cache.number_of_sets else None
 
 
-def format_feature_type_value(value: float, feature_type: FeatureType) -> str:
+def format_feature_type_value(value: Optional[float], feature_type: FeatureType) -> str:
+    if value is None:
+        return "N/A"
     if feature_type == FeatureType.IN:
         return f"{value:.3f} V"
     if feature_type == FeatureType.FAN:
