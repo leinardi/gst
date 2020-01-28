@@ -1,5 +1,5 @@
 Version next
-=============
+============
 Released: 2020-01-26
 
  * Added emoji to sensor feature types (⚡, ️🌡, 💧,...)
