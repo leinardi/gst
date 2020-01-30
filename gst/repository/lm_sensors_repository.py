@@ -61,7 +61,8 @@ class LmSensorsRepository:
                     if short_name == 'input':
                         item_value = value
                     else:
-                        additional_values.append(f"{short_name}: {value}")
+                        formatted_value = "{:.2f}".format(value).rstrip('0').rstrip('.')
+                        additional_values.append(f"{short_name}: {formatted_value}")
 
                 if additional_values:
                     item_name = "{} ({})".format(item_name, ", ".join(additional_values))
