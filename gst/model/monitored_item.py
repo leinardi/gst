@@ -30,5 +30,6 @@ class MonitoredItem:
 
     def update_value(self, value: Optional[float]) -> None:
         self.value = value
-        self.value_min = min(self.value_min, value) if value is not None and self.value_min is not None else None
-        self.value_max = max(self.value_max, value) if value is not None and self.value_min is not None else None
+        if value is not None:
+            self.value_min = min(self.value_min, value) if self.value_min is not None else value
+            self.value_max = max(self.value_max, value) if self.value_max is not None else value
