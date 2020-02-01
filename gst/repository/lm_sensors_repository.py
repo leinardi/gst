@@ -84,7 +84,9 @@ class LmSensorsRepository:
         return system_info
 
     @staticmethod
-    def _filter_value(feature_type: FeatureType, item: Optional[float], value: float) -> Optional[float]:
+    def _filter_value(feature_type: FeatureType, item: Optional[float], value: Optional[float]) -> Optional[float]:
+        if value is None:
+            return None
         if feature_type == FeatureType.TEMP:
             item = value if _SENSOR_MIN_TEMP < value < _SENSOR_MAX_TEMP else None
         else:
