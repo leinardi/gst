@@ -182,9 +182,9 @@ Thanks to:
 ## 📰 Media coverage 
  - [GamingOnLinux](https://www.gamingonlinux.com/articles/monitor-and-stress-test-your-linux-gaming-pc-with-gtkstresstesting.15854) 🇬🇧
  - [OMG! Ubuntu! 🇬](https://www.omgubuntu.co.uk/2020/01/new-stress-test-linux-app) 🇬🇧
- - [lffl](https://www.lffl.org/2020/01/gtkstresstesting-gst-tool.html)🇮🇹 🇮🇹
- - [Świat Linuksa](https://www.youtube.com/watch?v=F0_giDR9pI4) 🇵🇱📺
- - [Manuel Cabrera Caballero](https://www.youtube.com/watch?v=Hh04ffSa7P0) 🇪🇸📺
+ - [lffl](https://www.lffl.org/2020/01/gtkstresstesting-gst-tool.html) 🇮🇹
+ - [Świat Linuksa](https://www.youtube.com/watch?v=F0_giDR9pI4) 📺 🇵🇱
+ - [Manuel Cabrera Caballero](https://www.youtube.com/watch?v=Hh04ffSa7P0) 📺 🇪🇸
  - [Diolinux](https://www.diolinux.com.br/2020/01/faca-teste-de-stress-no-linux-com-o-gtkstresstesting.html) 🇧🇷
  - [Cerebrux](https://cerebrux.net/2020/01/29/gtkstresstesting-%CF%80%CE%B1%CF%81%CE%B1%CE%BA%CE%BF%CE%BB%CE%BF%CF%8D%CE%B8%CE%B7%CF%83%CE%B7-stress-test-cpu-ram/) 🇬🇷
 
