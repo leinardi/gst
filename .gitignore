@@ -5,6 +5,7 @@ build/
 __pycache__/
 *.so
 *~
+*.glade#
 /.idea
 *.autosave
 /.mypy_cache/
