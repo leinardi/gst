@@ -6,7 +6,16 @@ __pycache__/
 *.so
 *~
 *.glade#
-/.idea
+*.iml
+*.iws
+.idea/*
+!.idea/codeStyleSettings.xml
+!.idea/checkstyle-idea.xml
+!.idea/codeStyles/
+!.idea/copyright/
+!.idea/fileTemplates/
+!.idea/inspectionProfiles/
+!.idea/vcs.xml
 *.autosave
 /.mypy_cache/
 .dmypy.json
