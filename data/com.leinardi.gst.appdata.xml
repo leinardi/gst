@@ -32,6 +32,7 @@
                     <li>Added emoji to sensor feature types (⚡, ️🌡, 💧,...)</li>
                     <li>Improved core usage indicator creation algorithm</li>
                     <li>Handling sensor chip subfeature not being readable</li>
+                    <li>HWMON: displaying average value as current if current is not available</li>
                 </ul>
             </description>
         </release>

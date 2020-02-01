@@ -5,6 +5,7 @@ Released: 2020-01-26
  * Added emoji to sensor feature types (⚡, ️🌡, 💧,...)
  * Improved core usage indicator creation algorithm
  * Handling sensor chip subfeature not being readable
+ * HWMON: displaying average value as current if current is not available
 
 Version 0.6.1
 =============
