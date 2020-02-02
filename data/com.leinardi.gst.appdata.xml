@@ -36,6 +36,7 @@
                     <li>Added clarification text on how to read RAM info</li>
                     <li>Added check to verify if `dmidecode` is available on the host</li>
                     <li>Memory dropdown: pre-selecting the first installed module of RAM</li>
+                    <li>Fix #5: Window doesn't fit on 1366x768</li>
                 </ul>
             </description>
         </release>
