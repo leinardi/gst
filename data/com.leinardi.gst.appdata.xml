@@ -35,6 +35,7 @@
                     <li>HWMON: displaying average value as current if current is not available</li>
                     <li>Added clarification text on how to read RAM info</li>
                     <li>Added check to verify if `dmidecode` is available on the host</li>
+                    <li>Memory dropdown: pre-selecting the first installed module of RAM</li>
                 </ul>
             </description>
         </release>

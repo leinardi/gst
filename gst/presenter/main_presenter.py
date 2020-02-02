@@ -293,6 +293,12 @@ class MainPresenter:
     def _handle_read_all_result(self, result: DmiDecodeRepositoryResult) -> None:
         if result == DmiDecodeRepositoryResult.SUCCESS:
             self.main_view.init_system_info()
+            for index, bank_info in enumerate(self._system_info.memory_bank_info_list):
+                if bank_info.size and bank_info.size[0].isdigit():
+                    self.main_view.select_mem_bank(index)
+                    break
+            self.main_view.set_statusbar_text("Memory section updated")
+
         elif result == DmiDecodeRepositoryResult.ERROR_DMI_DECODE_NOT_AVAILABLE:
             self.main_view.show_error_message_dialog(
                 "dmidecode not available",

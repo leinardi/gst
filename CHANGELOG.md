@@ -8,6 +8,7 @@ Released: 2020-01-26
  * HWMON: displaying average value as current if current is not available
  * Added clarification text on how to read RAM info
  * Added check to verify if `dmidecode` is available on the host
+ * Memory dropdown: pre-selecting the first installed module of RAM
 
 Version 0.6.1
 =============
