@@ -1,3 +1,9 @@
+Version 0.7.1
+=============
+Released: 2020-02-02
+
+ * Fixed GST not starting with 2 columns for some users
+
 Version 0.7.0
 =============
 Released: 2020-02-02

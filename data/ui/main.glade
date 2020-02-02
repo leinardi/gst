@@ -137,7 +137,7 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
     <property name="width_request">640</property>
     <property name="height_request">700</property>
     <property name="can_focus">False</property>
-    <property name="default_width">1200</property>
+    <property name="default_width">1280</property>
     <property name="default_height">940</property>
     <property name="icon_name">com.leinardi.gst</property>
     <property name="gravity">north</property>
@@ -2357,7 +2357,6 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                             <property name="hexpand">True</property>
                                             <property name="shadow_type">in</property>
                                             <property name="min_content_height">80</property>
-                                            <property name="propagate_natural_width">True</property>
                                             <property name="propagate_natural_height">True</property>
                                             <child>
                                               <object class="GtkTreeView" id="cpu_clocks_tree_view">
@@ -2493,7 +2492,6 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                             <property name="hexpand">True</property>
                                             <property name="shadow_type">in</property>
                                             <property name="min_content_height">80</property>
-                                            <property name="propagate_natural_width">True</property>
                                             <property name="propagate_natural_height">True</property>
                                             <child>
                                               <object class="GtkTreeView" id="hwmon_tree_view">

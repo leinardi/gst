@@ -26,6 +26,13 @@
     <url type="bugtracker">https://gitlab.com/leinardi/gst/issues</url>
     <update_contact>roberto@leinardi.com</update_contact>
     <releases>
+        <release date="2020-02-02" version="0.7.1">
+            <description>
+                <ul>
+                    <li>Fixed GST not starting with 2 columns for some users</li>
+                </ul>
+            </description>
+        </release>
         <release date="2020-02-02" version="0.7.0">
             <description>
                 <ul>
