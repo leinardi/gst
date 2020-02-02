@@ -1498,6 +1498,7 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                   <object class="GtkBox">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
+                                    <property name="hexpand">True</property>
                                     <property name="spacing">4</property>
                                     <child>
                                       <object class="GtkLabel" id="mem_manufacturer_label">
@@ -1563,13 +1564,14 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                   <packing>
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">2</property>
-                                    <property name="width">6</property>
+                                    <property name="width">2</property>
                                   </packing>
                                 </child>
                                 <child>
                                   <object class="GtkBox">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
+                                    <property name="hexpand">True</property>
                                     <property name="spacing">4</property>
                                     <child>
                                       <object class="GtkEntry" id="mem_size_entry">
@@ -1651,7 +1653,6 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                   <packing>
                                     <property name="left_attach">1</property>
                                     <property name="top_attach">0</property>
-                                    <property name="width">5</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -1668,59 +1669,75 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkEntry" id="mem_type_entry">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="editable">False</property>
-                                    <property name="xalign">0.5</property>
-                                    <property name="primary_icon_stock">gtk-dialog-authentication</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">1</property>
-                                    <property name="top_attach">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel" id="mem_type_detail_label">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="halign">end</property>
-                                    <property name="label" translatable="yes">Type Detail</property>
-                                    <property name="justify">right</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">2</property>
-                                    <property name="top_attach">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkEntry" id="mem_type_detail_entry">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="editable">False</property>
-                                    <property name="width_chars">32</property>
-                                    <property name="xalign">0.5</property>
-                                    <property name="primary_icon_stock">gtk-dialog-authentication</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">3</property>
-                                    <property name="top_attach">1</property>
-                                    <property name="width">3</property>
-                                  </packing>
-                                </child>
-                                <child>
                                   <object class="GtkLabel" id="mem_read_all_info_label">
                                     <property name="visible">True</property>
                                     <property name="sensitive">False</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Press "Read all" button to read RAM info</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="label" translatable="yes">Press "Read all" button on the top, left corner to read RAM information</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">3</property>
-                                    <property name="width">6</property>
+                                    <property name="width">2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="spacing">4</property>
+                                    <child>
+                                      <object class="GtkEntry" id="mem_type_entry">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="editable">False</property>
+                                        <property name="width_chars">9</property>
+                                        <property name="xalign">0.5</property>
+                                        <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="mem_type_detail_label">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="halign">end</property>
+                                        <property name="label" translatable="yes">Type Detail</property>
+                                        <property name="justify">right</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="mem_type_detail_entry">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="editable">False</property>
+                                        <property name="width_chars">32</property>
+                                        <property name="xalign">0.5</property>
+                                        <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="top_attach">1</property>
                                   </packing>
                                 </child>
                               </object>
