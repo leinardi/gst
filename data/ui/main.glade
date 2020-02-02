@@ -286,6 +286,9 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                   <object class="GtkFlowBox">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_left">4</property>
+                    <property name="margin_right">4</property>
+                    <property name="margin_bottom">4</property>
                     <property name="column_spacing">2</property>
                     <property name="row_spacing">2</property>
                     <property name="min_children_per_line">1</property>
@@ -306,8 +309,7 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                               <object class="GtkFrame">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="margin_top">3</property>
-                                <property name="margin_bottom">1</property>
+                                <property name="margin_bottom">5</property>
                                 <property name="label_xalign">0.5</property>
                                 <property name="shadow_type">out</property>
                                 <child>
@@ -1692,7 +1694,7 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                                 <property name="sensitive">False</property>
                                                 <property name="can_focus">False</property>
                                                 <property name="hexpand">True</property>
-                                                <property name="label" translatable="yes">Press "Read all" button on the top, left corner to read RAM information</property>
+                                                <property name="label" translatable="yes">Press "Read all" button on the top-left corner to read RAM information</property>
                                               </object>
                                               <packing>
                                                 <property name="left_attach">0</property>
@@ -1808,7 +1810,6 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                               <object class="GtkExpander">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="margin_top">3</property>
                                 <property name="margin_bottom">3</property>
                                 <property name="expanded">True</property>
                                 <child>
