@@ -40,7 +40,6 @@ class SysDevicesDmiRepository:
 
     @synchronized_with_attr("_lock")
     def refresh(self, system_info: SystemInfo) -> SystemInfo:
-        _LOG.debug("refresh %s", PATH_SYS_VIRTUAL_DMI)
         if not self._has_sys_devices_dmi():
             _LOG.warning("%s not found", PATH_SYS_VIRTUAL_DMI)
             return system_info

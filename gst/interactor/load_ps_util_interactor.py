@@ -33,5 +33,4 @@ class LoadPsUtilInteractor:
         self._psutil_repository = psutil_repository
 
     def execute(self, system_info: SystemInfo) -> Observable:
-        _LOG.debug("LoadPsUtilInteractor.refresh()")
         return rx.defer(lambda _: rx.just(self._psutil_repository.refresh(system_info)))

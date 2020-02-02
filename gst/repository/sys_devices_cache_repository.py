@@ -43,7 +43,6 @@ class SysDevicesCacheRepository:
 
     @synchronized_with_attr("_lock")
     def refresh(self, system_info: SystemInfo) -> SystemInfo:
-        _LOG.debug("refresh %s/cpu*/cache", PATH_SYS_CPU)
         if not self._has_sys_devices_cache():
             _LOG.warning("%s not found", os.path.join(PATH_SYS_CPU, "cpu0", "cache"))
             return system_info

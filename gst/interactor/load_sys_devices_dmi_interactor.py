@@ -33,5 +33,4 @@ class LoadSysDevicesDmiInteractor:
         self._sys_devices_dmi_repository = sys_devices_dmi_repository
 
     def execute(self, system_info: SystemInfo) -> Observable:
-        _LOG.debug("LoadSysDevicesDmiInteractor.refresh()")
         return rx.defer(lambda _: rx.just(self._sys_devices_dmi_repository.refresh(system_info)))

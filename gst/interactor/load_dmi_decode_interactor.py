@@ -33,5 +33,4 @@ class LoadDmiDecodeInteractor:
         self._dmi_decode_repository = dmi_decode_repository
 
     def execute(self, system_info: SystemInfo) -> Observable:
-        _LOG.debug("LoadDmiDecodeInteractor.refresh()")
         return rx.defer(lambda _: rx.just(self._dmi_decode_repository.refresh(system_info)))

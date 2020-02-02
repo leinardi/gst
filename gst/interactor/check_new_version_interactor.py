@@ -39,7 +39,6 @@ class CheckNewVersionInteractor:
         pass
 
     def execute(self) -> Observable:
-        _LOG.debug("CheckNewVersionInteractor.execute()")
         return rx.defer(lambda _: rx.just(self._check_new_version()))
 
     def _check_new_version(self) -> Optional[LooseVersion]:

@@ -299,7 +299,7 @@ class MainView(MainViewInterface):
         self._update_memory()
 
     def refresh_system_info(self) -> None:
-        _LOG.debug('view system_info')
+        _LOG.debug('refresh system info')
         self._update_cpu_usage()
         self._update_mem_usage()
         self._update_clocks()

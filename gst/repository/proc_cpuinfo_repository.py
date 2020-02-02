@@ -64,7 +64,6 @@ class ProcCpuinfoRepository:
 
     @synchronized_with_attr("_lock")
     def refresh(self, system_info: SystemInfo) -> SystemInfo:
-        _LOG.debug("refresh %s", PATH_PROC_CPUINFO)
         if not os.path.exists(PATH_PROC_CPUINFO):
             _LOG.warning("%s not found", PATH_PROC_CPUINFO)
             return system_info

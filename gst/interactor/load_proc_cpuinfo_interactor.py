@@ -33,5 +33,4 @@ class LoadProcCpuinfoInteractor:
         self._proc_cpuinfo_repository = proc_cpuinfo_repository
 
     def execute(self, system_info: SystemInfo) -> Observable:
-        _LOG.debug("LoadProcCpuinfoInteractor.refresh()")
         return rx.defer(lambda _: rx.just(self._proc_cpuinfo_repository.refresh(system_info)))
