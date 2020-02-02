@@ -27,7 +27,7 @@ from gst.interactor.notification_interactor import NotificationInteractor
 from gst.interactor.settings_interactor import SettingsInteractor
 from gst.model import SelectedProcessor, CPU_FLAGS, CPU_BUGS
 from gst.model.cpu_info import CpuInfo
-from gst.model.memory_bank_info import MemoryBankInfo
+from gst.model.memory_bank_info import MemoryBankInfo, LOCATOR_DEFAULT_TEXT
 from gst.model.processor import Processor
 from gst.model.stress_tests_result import StressTestsResult
 from gst.model.system_info import SystemInfo
@@ -184,6 +184,7 @@ class MainView(MainViewInterface):
         self._mem_rank_entry: Gtk.Entry = self._builder.get_object('mem_rank_entry')
         self._mem_manufacturer_entry: Gtk.Entry = self._builder.get_object('mem_manufacturer_entry')
         self._mem_part_number_entry: Gtk.Entry = self._builder.get_object('mem_part_number_entry')
+        self._mem_read_all_info_label: Gtk.Label = self._builder.get_object('mem_read_all_info_label')
 
         # CPU Usage
         self._cpu_core_usage_grid: Gtk.Grid = self._builder.get_object('cpu_core_usage_grid')
@@ -591,6 +592,9 @@ class MainView(MainViewInterface):
         self._set_entry_with_label_text('mem_rank', mem_bank_info.rank)
         self._set_entry_with_label_text('mem_manufacturer', mem_bank_info.manufacturer)
         self._set_entry_with_label_text('mem_part_number', mem_bank_info.part_number)
+        read_all_label_visibility = len(self._system_info.memory_bank_info_list) \
+                                    and self._system_info.memory_bank_info_list[0].locator == LOCATOR_DEFAULT_TEXT
+        self._mem_read_all_info_label.set_visible(read_all_label_visibility)
 
     def _set_entry_with_label_text(self,
                                    name: str,

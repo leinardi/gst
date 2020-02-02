@@ -6,6 +6,7 @@ Released: 2020-01-26
  * Improved core usage indicator creation algorithm
  * Handling sensor chip subfeature not being readable
  * HWMON: displaying average value as current if current is not available
+ * Added clarification text on how to read RAM info
 
 Version 0.6.1
 =============

@@ -16,11 +16,14 @@
 # along with gst.  If not, see <http://www.gnu.org/licenses/>.
 from typing import Optional
 
+LOCATOR_DEFAULT_TEXT = ""
+BANK_LOCATOR_DEFAULT_TEXT = "Click \"Read all\""
+
 
 class MemoryBankInfo:
     def __init__(self) -> None:
-        self.locator: Optional[str] = None
-        self.bank_locator: Optional[str] = None
+        self.locator: Optional[str] = LOCATOR_DEFAULT_TEXT
+        self.bank_locator: Optional[str] = BANK_LOCATOR_DEFAULT_TEXT
         self.type: Optional[str] = None
         self.type_detail: Optional[str] = None
         self.size: Optional[str] = None

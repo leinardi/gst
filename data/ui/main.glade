@@ -1577,7 +1577,7 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="editable">False</property>
-                                        <property name="width_chars">8</property>
+                                        <property name="width_chars">16</property>
                                         <property name="xalign">0.5</property>
                                         <property name="primary_icon_stock">gtk-dialog-authentication</property>
                                       </object>
@@ -1607,7 +1607,7 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="editable">False</property>
-                                        <property name="width_chars">2</property>
+                                        <property name="width_chars">16</property>
                                         <property name="xalign">0.5</property>
                                         <property name="primary_icon_stock">gtk-dialog-authentication</property>
                                       </object>
@@ -1673,7 +1673,6 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                     <property name="can_focus">True</property>
                                     <property name="hexpand">True</property>
                                     <property name="editable">False</property>
-                                    <property name="width_chars">5</property>
                                     <property name="xalign">0.5</property>
                                     <property name="primary_icon_stock">gtk-dialog-authentication</property>
                                   </object>
@@ -1709,6 +1708,19 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                     <property name="left_attach">3</property>
                                     <property name="top_attach">1</property>
                                     <property name="width">3</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="mem_read_all_info_label">
+                                    <property name="visible">True</property>
+                                    <property name="sensitive">False</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Press "Read all" button to read RAM info</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">3</property>
+                                    <property name="width">6</property>
                                   </packing>
                                 </child>
                               </object>
@@ -2100,6 +2112,27 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                 <property name="can_focus">False</property>
                                 <property name="column_spacing">4</property>
                                 <property name="column_homogeneous">True</property>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
                                 <child>
                                   <placeholder/>
                                 </child>
