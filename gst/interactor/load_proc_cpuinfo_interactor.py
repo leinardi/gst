@@ -23,7 +23,7 @@ from rx import Observable
 from gst.model.system_info import SystemInfo
 from gst.repository.proc_cpuinfo_repository import ProcCpuinfoRepository
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 @singleton
@@ -33,5 +33,4 @@ class LoadProcCpuinfoInteractor:
         self._proc_cpuinfo_repository = proc_cpuinfo_repository
 
     def execute(self, system_info: SystemInfo) -> Observable:
-        LOG.debug("LoadProcCpuinfoInteractor.refresh()")
         return rx.defer(lambda _: rx.just(self._proc_cpuinfo_repository.refresh(system_info)))

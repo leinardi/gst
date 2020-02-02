@@ -22,7 +22,7 @@ from injector import singleton, inject
 from gst.conf import SETTINGS_DEFAULTS
 from gst.model.setting import Setting
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 @singleton

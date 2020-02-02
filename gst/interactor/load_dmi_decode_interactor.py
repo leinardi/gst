@@ -23,7 +23,7 @@ from rx import Observable
 from gst.model.system_info import SystemInfo
 from gst.repository.dmi_decode_repository import DmiDecodeRepository
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 @singleton
@@ -33,5 +33,4 @@ class LoadDmiDecodeInteractor:
         self._dmi_decode_repository = dmi_decode_repository
 
     def execute(self, system_info: SystemInfo) -> Observable:
-        LOG.debug("LoadDmiDecodeInteractor.refresh()")
         return rx.defer(lambda _: rx.just(self._dmi_decode_repository.refresh(system_info)))

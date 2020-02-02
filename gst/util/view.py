@@ -182,7 +182,9 @@ def format_cache_sets(cache: Optional[Cache]) -> Optional[str]:
     return ("%d sets" % cache.number_of_sets) if cache and cache.number_of_sets else None
 
 
-def format_feature_type_value(value: float, feature_type: FeatureType) -> str:
+def format_feature_type_value(value: Optional[float], feature_type: FeatureType) -> str:
+    if value is None:
+        return "N/A"
     if feature_type == FeatureType.IN:
         return f"{value:.3f} V"
     if feature_type == FeatureType.FAN:
@@ -208,21 +210,21 @@ def format_feature_type_value(value: float, feature_type: FeatureType) -> str:
 
 def get_sensors_feature_type_name(feature_type: FeatureType) -> str:
     if feature_type == FeatureType.IN:
-        return "Voltages"
+        return "⚡ Voltages"
     if feature_type == FeatureType.FAN:
-        return "Fans"
+        return "🌀 Fans"
     if feature_type == FeatureType.TEMP:
-        return "Temperatures"
+        return "🌡️ Temperatures"
     if feature_type == FeatureType.POWER:
-        return "Power"
+        return "⚡ Power"
     if feature_type == FeatureType.ENERGY:
-        return "Energy"
+        return "⚡ Energy"
     if feature_type == FeatureType.CURR:
-        return "Currents"
+        return "⚡ Currents"
     if feature_type == FeatureType.HUMIDITY:
-        return "Humidity"
+        return "💧 Humidity"
     if feature_type == FeatureType.INTRUSION:
-        return "Intrusion detection"
+        return "🚨 Intrusion detection"
     if feature_type == FeatureType.BEEP_ENABLE:
         return "Bitmask for beep"
     if feature_type == FeatureType.CLOCK:

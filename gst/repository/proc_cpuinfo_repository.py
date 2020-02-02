@@ -28,7 +28,7 @@ from gst.model.system_info import SystemInfo
 from gst.util.concurrency import synchronized_with_attr
 from gst.util.sensors import FeatureType
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 PATH_PROC_CPUINFO = '/proc/cpuinfo'
 CLEAN_CPU_STRING_REGEX = r"chipset|company|components|computing|computer|corporation|communications|electronics|" \
                          r"electrical|electric|gmbh|group|incorporation|industrial|international|\bnee\b|revision" \
@@ -64,16 +64,15 @@ class ProcCpuinfoRepository:
 
     @synchronized_with_attr("_lock")
     def refresh(self, system_info: SystemInfo) -> SystemInfo:
-        LOG.debug("refresh %s", PATH_PROC_CPUINFO)
         if not os.path.exists(PATH_PROC_CPUINFO):
-            LOG.warning("%s not found", PATH_PROC_CPUINFO)
+            _LOG.warning("%s not found", PATH_PROC_CPUINFO)
             return system_info
 
         try:
             with open(PATH_PROC_CPUINFO, 'r') as file:
                 output = file.read()
         except IOError:
-            LOG.exception("Error while reading %s", PATH_PROC_CPUINFO)
+            _LOG.exception("Error while reading %s", PATH_PROC_CPUINFO)
             return system_info
 
         # load data on a temp variable

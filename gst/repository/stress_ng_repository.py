@@ -30,7 +30,7 @@ from gst.conf import APP_PACKAGE_NAME
 from gst.model.stress_tests_result import StressTestsResult
 from gst.repository import PATH_SYS_SYSTEM
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 PATH_SYS_CPU = PATH_SYS_SYSTEM + "/cpu"
 
 
@@ -64,7 +64,7 @@ class StressNgRepository:
                 cmd.append('--verify')
 
             cmd.extend(stressor_command.format(workers).split())
-            LOG.debug(f"stress-ng command = {cmd}")
+            _LOG.debug(f"stress-ng command = {cmd}")
 
             process = subprocess.Popen(cmd,
                                        stdout=subprocess.PIPE,
@@ -81,14 +81,14 @@ class StressNgRepository:
                           f"output = {output.decode(encoding='UTF-8').strip()};\n" \
                           f"error = {result.error}"
             if process.returncode == 0:
-                LOG.debug(log_message)
+                _LOG.debug(log_message)
             else:
-                LOG.error(log_message)
+                _LOG.error(log_message)
 
             with suppress(OSError), stress_ng_output.open() as stream:
                 try:
                     report = yaml.safe_load(stream)
-                    LOG.debug(f"Parsed YAML report: {report}")
+                    _LOG.debug(f"Parsed YAML report: {report}")
                     if report['metrics']:
                         result.elapsed = 0
                         result.bogo_ops = 0
@@ -98,7 +98,7 @@ class StressNgRepository:
                             result.bogo_ops += stressor['bogo-ops']
                             result.bopsust += stressor['bogo-ops-per-second-usr-sys-time']
                 except yaml.YAMLError as exc:
-                    LOG.exception(exc)
+                    _LOG.exception(exc)
 
             self._pid = None
         return result

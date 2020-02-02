@@ -16,6 +16,7 @@
 # along with gst.  If not, see <http://www.gnu.org/licenses/>.
 import datetime
 import logging
+import math
 from typing import Optional, Any, Dict, List, Tuple
 
 from gi.repository.Gst import MessageType
@@ -26,7 +27,7 @@ from gst.interactor.notification_interactor import NotificationInteractor
 from gst.interactor.settings_interactor import SettingsInteractor
 from gst.model import SelectedProcessor, CPU_FLAGS, CPU_BUGS
 from gst.model.cpu_info import CpuInfo
-from gst.model.memory_bank_info import MemoryBankInfo
+from gst.model.memory_bank_info import MemoryBankInfo, LOCATOR_DEFAULT_TEXT
 from gst.model.processor import Processor
 from gst.model.stress_tests_result import StressTestsResult
 from gst.model.system_info import SystemInfo
@@ -37,7 +38,7 @@ from gst.view.preferences_view import PreferencesView
 from gst.conf import APP_PACKAGE_NAME, APP_NAME, APP_VERSION, APP_SOURCE_URL
 from gst.presenter.main_presenter import MainPresenter, MainViewInterface
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 _CORE_USAGE_MAX_PER_ROW = 16
 
 
@@ -53,7 +54,7 @@ class MainView(MainViewInterface):
                  settings_interactor: SettingsInteractor,
                  system_info: SystemInfo
                  ) -> None:
-        LOG.debug('init MainView')
+        _LOG.debug('init MainView')
         self._presenter: MainPresenter = presenter
         self._preferences_view = preferences_view
         self._presenter.main_view = self
@@ -183,6 +184,7 @@ class MainView(MainViewInterface):
         self._mem_rank_entry: Gtk.Entry = self._builder.get_object('mem_rank_entry')
         self._mem_manufacturer_entry: Gtk.Entry = self._builder.get_object('mem_manufacturer_entry')
         self._mem_part_number_entry: Gtk.Entry = self._builder.get_object('mem_part_number_entry')
+        self._mem_read_all_info_label: Gtk.Label = self._builder.get_object('mem_read_all_info_label')
 
         # CPU Usage
         self._cpu_core_usage_grid: Gtk.Grid = self._builder.get_object('cpu_core_usage_grid')
@@ -287,7 +289,7 @@ class MainView(MainViewInterface):
         self._cpu_bugs_dialog.show_all()
 
     def init_system_info(self) -> None:
-        LOG.debug("view init_system_info")
+        _LOG.debug("view init_system_info")
         self._update_cpu_info(self._system_info.cpu_info, init=True)
         self._update_mobo_info()
         self._update_clocks(init=True)
@@ -297,7 +299,7 @@ class MainView(MainViewInterface):
         self._update_memory()
 
     def refresh_system_info(self) -> None:
-        LOG.debug('view system_info')
+        _LOG.debug('refresh system info')
         self._update_cpu_usage()
         self._update_mem_usage()
         self._update_clocks()
@@ -334,7 +336,7 @@ class MainView(MainViewInterface):
         self._set_entry_with_label_text('stress_bogo_tot', None if result.bogo_ops is None else str(result.bogo_ops))
         self._set_entry_with_label_text('stress_bopsust', None if result.bopsust is None else f"{result.bopsust:.2f}")
         if result.return_code and result.return_code != 2:
-            self.show_message_dialog(Gtk.ButtonsType.OK, "stress-ng error!", result.error)
+            self.show_error_message_dialog("stress-ng error!", result.error)
 
     def get_stress_test_config(self) -> Tuple[str, int, int]:
         return (self._stress_stressor_comboboxtext.get_active_id(),
@@ -368,11 +370,11 @@ class MainView(MainViewInterface):
 
     def _update_cpu_info(self, cpu_info: CpuInfo, init: bool = False) -> None:
         if not cpu_info:
-            LOG.error("CpuInfo is None")
+            _LOG.error("CpuInfo is None")
             return
 
         if init:
-            LOG.debug("view cpu init")
+            _LOG.debug("view cpu init")
 
             self._setup_physical_package_combobox(cpu_info)
 
@@ -435,11 +437,12 @@ class MainView(MainViewInterface):
 
     def _update_cpu_usage(self) -> None:
         if not self._cpu_core_usage_cores_levelbars:
-            row_count = (len(self._system_info.cpu_usage.cores) // _CORE_USAGE_MAX_PER_ROW)
-            if row_count:
-                self._cpu_core_usage_grid.set_property("height-request", row_count * 60)
+            core_count = len(self._system_info.cpu_usage.cores)
+            row_count = math.ceil(core_count / _CORE_USAGE_MAX_PER_ROW)
+            self._cpu_core_usage_grid.set_property("height-request", row_count * 64)
+            cores_per_row = math.ceil(core_count / row_count)
             for index, value in enumerate(self._system_info.cpu_usage.cores):
-                top = (index // _CORE_USAGE_MAX_PER_ROW) * 2
+                top = (index // cores_per_row) * 2
                 levelbar = Gtk.LevelBar(min_value=0,
                                         max_value=100,
                                         value=value,
@@ -451,8 +454,8 @@ class MainView(MainViewInterface):
                 label = Gtk.Label(f"{index + 1}")
                 self._cpu_core_usage_cores_labels.insert(index, label)
                 self._cpu_core_usage_cores_levelbars.insert(index, levelbar)
-                self._cpu_core_usage_grid.attach(levelbar, index % _CORE_USAGE_MAX_PER_ROW, top, 1, 1)
-                self._cpu_core_usage_grid.attach(label, index % _CORE_USAGE_MAX_PER_ROW, top + 1, 1, 1)
+                self._cpu_core_usage_grid.attach(levelbar, index % cores_per_row, top, 1, 1)
+                self._cpu_core_usage_grid.attach(label, index % cores_per_row, top + 1, 1, 1)
                 self._window.show_all()
         else:
             for index, value in enumerate(self._system_info.cpu_usage.cores):
@@ -563,6 +566,7 @@ class MainView(MainViewInterface):
         for index, mem_bank_info in enumerate(mem_bank_list):
             self._mem_bank_comboboxtext.insert(index, str(index),
                                                f"{mem_bank_info.locator} ({mem_bank_info.bank_locator})")
+
         if self._mem_bank_comboboxtext.get_active() == -1:
             self._mem_bank_comboboxtext.set_active(self._selected_mem_bank)
         self._mem_bank_comboboxtext.set_sensitive(
@@ -589,6 +593,9 @@ class MainView(MainViewInterface):
         self._set_entry_with_label_text('mem_rank', mem_bank_info.rank)
         self._set_entry_with_label_text('mem_manufacturer', mem_bank_info.manufacturer)
         self._set_entry_with_label_text('mem_part_number', mem_bank_info.part_number)
+        read_all_label_visibility = len(self._system_info.memory_bank_info_list) \
+                                    and self._system_info.memory_bank_info_list[0].locator == LOCATOR_DEFAULT_TEXT
+        self._mem_read_all_info_label.set_visible(read_all_label_visibility)
 
     def _set_entry_with_label_text(self,
                                    name: str,
@@ -609,9 +616,9 @@ class MainView(MainViewInterface):
             if label is not None:
                 label.set_sensitive(text is not None)
             else:
-                LOG.error("label %s not found!", label_name)
+                _LOG.error("label %s not found!", label_name)
         else:
-            LOG.error("entry %s not found!", entry_name)
+            _LOG.error("entry %s not found!", entry_name)
 
     def _set_levelbar_with_label_text(self,
                                       name: str,
@@ -631,9 +638,9 @@ class MainView(MainViewInterface):
             if label is not None:
                 label.set_sensitive(text is not None)
             else:
-                LOG.error("label %s not found!", label_name)
+                _LOG.error("label %s not found!", label_name)
         else:
-            LOG.error("levelbar %s not found!", levelbar_name)
+            _LOG.error("levelbar %s not found!", levelbar_name)
 
     def _set_entries_with_label_text(self, base_name: str, text_dict: Dict[str, Optional[str]]) -> None:
         all_none: bool = True
@@ -649,7 +656,7 @@ class MainView(MainViewInterface):
             label: Gtk.Label = self.__getattribute__(label_name)
             label.set_sensitive(not all_none)
         else:
-            LOG.error(f"label {label_name} not found!")
+            _LOG.error(f"label {label_name} not found!")
 
     def _set_label_text(self, name: str, text: Optional[str]) -> None:
         label_name = f"_{name}_label"
@@ -658,7 +665,7 @@ class MainView(MainViewInterface):
             label.set_sensitive(text is not None)
             label.set_text(text if text is not None else '')
         else:
-            LOG.error(f"label {label_name} not found!")
+            _LOG.error(f"label {label_name} not found!")
 
     @staticmethod
     def _set_entry_text(label: Gtk.Entry, text: Optional[str], *args: Any) -> None:
@@ -694,8 +701,8 @@ class MainView(MainViewInterface):
             levelbar.set_value(0)
             levelbar.set_sensitive(False)
 
-    def show_message_dialog(self, message_type: MessageType, title: str, message: str) -> None:
-        dialog = Gtk.MessageDialog(self._window, 0, Gtk.MessageType.ERROR, message_type, title)
+    def show_error_message_dialog(self, title: str, message: str) -> None:
+        dialog = Gtk.MessageDialog(self._window, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, title)
         dialog.format_secondary_text(message)
-        response = dialog.run()
+        dialog.run()
         dialog.destroy()

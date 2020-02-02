@@ -16,6 +16,7 @@
 # along with gst.  If not, see <http://www.gnu.org/licenses/>.
 import logging
 import threading
+from enum import Enum, auto
 from typing import Dict, Optional
 
 from injector import singleton, inject
@@ -24,9 +25,15 @@ from gst.model.system_info import SystemInfo, MemoryBankInfo
 from gst.util.concurrency import synchronized_with_attr
 from gst.util.dmidecode import DmiParse, DmiType
 from gst.util.linux import is_root
-from gst.util.subprocess import run_and_get_stdout
+from gst.util.subprocess import run_on_host_and_get_stdout, check_if_command_is_available
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
+
+
+class DmiDecodeRepositoryResult(Enum):
+    SUCCESS = auto()
+    ERROR_DMI_DECODE_NOT_AVAILABLE = auto()
+    ERROR_GENERIC = auto()
 
 
 @singleton
@@ -36,15 +43,20 @@ class DmiDecodeRepository:
         self._lock = threading.RLock()
 
     @synchronized_with_attr("_lock")
-    def refresh(self, system_info: SystemInfo) -> SystemInfo:
+    def refresh(self, system_info: SystemInfo) -> DmiDecodeRepositoryResult:
         cmd = ['dmidecode']
+
+        if not check_if_command_is_available(cmd[0], True):
+            return DmiDecodeRepositoryResult.ERROR_DMI_DECODE_NOT_AVAILABLE
+
         if not is_root():
             cmd.insert(0, 'pkexec')
-        result = run_and_get_stdout(cmd)
-        LOG.debug(f"Exit code: {result[0]}. {result[1]}\n{result[2]}")
+        result = run_on_host_and_get_stdout(cmd)
+        _LOG.debug(f"Exit code: {result[0]}. {result[1]}\n{result[2]}")
 
         if result[0] != 0:
-            raise RuntimeError(f"Error executing dmidecode (exit code {result[0]}): {result[2]}")
+            _LOG.error(f"Error executing dmidecode (exit code {result[0]}): {result[2]}")
+            return DmiDecodeRepositoryResult.ERROR_GENERIC
 
         dmi = DmiParse(result[1])
         dmi_entry_list = dmi.get_type(DmiType.MEMORY_DEVICE.value)
@@ -88,7 +100,7 @@ class DmiDecodeRepository:
                                     and processor.model == model \
                                     and processor.stepping == stepping:
                                 processor.package = package
-        return system_info
+        return DmiDecodeRepositoryResult.SUCCESS
 
     @staticmethod
     def _get_entry_value(key: str, entry: Dict) -> Optional[str]:

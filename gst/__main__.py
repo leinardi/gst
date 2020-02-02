@@ -40,7 +40,7 @@ LOCALE_DIR = join(WHERE_AM_I, 'mo')
 
 set_log_level(logging.INFO)
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 # POSIX locale settings
 locale.setlocale(locale.LC_ALL, locale.getlocale())
@@ -52,13 +52,13 @@ gettext.textdomain(APP_PACKAGE_NAME)
 
 def _cleanup() -> None:
     try:
-        LOG.debug("cleanup")
+        _LOG.debug("cleanup")
         INJECTOR.get(StressNgRepository).terminate()
         INJECTOR.get(CompositeDisposable).dispose()
         INJECTOR.get(SqliteDatabase).close()
         # futures.thread._threads_queues.clear()
     except:
-        LOG.exception("Error during cleanup!")
+        _LOG.exception("Error during cleanup!")
 
 
 def handle_exception(type_: Type[BaseException], value: BaseException, traceback: TracebackType) -> None:
@@ -66,7 +66,7 @@ def handle_exception(type_: Type[BaseException], value: BaseException, traceback
         sys.__excepthook__(type_, value, traceback)
         return
 
-    LOG.critical("Uncaught exception", exc_info=(type_, value, traceback))
+    _LOG.critical("Uncaught exception", exc_info=(type_, value, traceback))
     _cleanup()
     sys.exit(1)
 
@@ -82,7 +82,7 @@ def _init_database() -> None:
 
 
 def main() -> int:
-    LOG.debug("main")
+    _LOG.debug("main")
     _init_database()
     application: Application = INJECTOR.get(Application)
     GLib.unix_signal_add(GLib.PRIORITY_DEFAULT, signal.SIGINT, application.quit)

@@ -22,7 +22,7 @@ from rx import Observable
 
 from gst.repository.stress_ng_repository import StressNgRepository
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 @singleton
@@ -32,14 +32,11 @@ class StressNgInteractor:
         self._stress_ng_repository = stress_ng_repository
 
     def execute(self, stressor_command: str, workers: int, timeout: int, verify: bool) -> Observable:
-        LOG.debug("StressNgInteractor.execute()")
         return rx.defer(
             lambda _: rx.just(self._stress_ng_repository.execute(stressor_command, workers, timeout, verify)))
 
     def is_running(self) -> bool:
-        LOG.debug("StressNgInteractor.is_running()")
         return self._stress_ng_repository.is_running()
 
     def terminate(self) -> Observable:
-        LOG.debug("StressNgInteractor.terminate()")
         return rx.defer(lambda _: rx.just(self._stress_ng_repository.terminate()))

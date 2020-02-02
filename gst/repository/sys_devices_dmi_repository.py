@@ -23,7 +23,7 @@ from injector import singleton, inject
 from gst.model.system_info import SystemInfo
 from gst.util.concurrency import synchronized_with_attr
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 PATH_SYS_DEVICE_VIRTUAL = "/sys/devices/virtual"
 PATH_SYS_VIRTUAL_DMI = PATH_SYS_DEVICE_VIRTUAL + "/dmi/id"
 
@@ -40,9 +40,8 @@ class SysDevicesDmiRepository:
 
     @synchronized_with_attr("_lock")
     def refresh(self, system_info: SystemInfo) -> SystemInfo:
-        LOG.debug("refresh %s", PATH_SYS_VIRTUAL_DMI)
         if not self._has_sys_devices_dmi():
-            LOG.warning("%s not found", PATH_SYS_VIRTUAL_DMI)
+            _LOG.warning("%s not found", PATH_SYS_VIRTUAL_DMI)
             return system_info
 
         for attr, _ in system_info.mobo_info:

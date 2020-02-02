@@ -48,12 +48,12 @@ Install the `gst` package from the AUR using your favourite helper, for example 
 ### Install from source code
 #### Dependencies for (K/X)Ubuntu 18.10 or newer
 ```bash
-sudo apt install appstream-util gir1.2-gtksource-3.0 git libcairo2-dev libgirepository1.0-dev libglib2.0-dev meson python3-gi-cairo python3-pip stress-ng
+sudo apt install appstream-util dmidecode gir1.2-gtksource-3.0 git libcairo2-dev libgirepository1.0-dev libglib2.0-dev meson python3-gi-cairo python3-pip stress-ng
 ```
 
 #### Dependencies for Fedora 28 or newer
 ```bash
-dnf install desktop-file-utils git gobject-introspection-devel gtk3-devel libappstream-glib meson python3-cairocffi python3-devel python3-pip redhat-rpm-config stress-ng
+dnf install desktop-file-utils dmidecode git gobject-introspection-devel gtk3-devel libappstream-glib meson python3-cairocffi python3-devel python3-pip redhat-rpm-config stress-ng
 ```
 
 #### Clone project and install
@@ -179,8 +179,14 @@ Thanks to:
  - @tim74 for maintaining the [COPR package](https://copr.fedorainfracloud.org/coprs/atim/gst/)
  - all the people that helped testing and reported bugs
 
-<!--## 📰 Media coverage 
- - []() 🇬🇧-->
+## 📰 Media coverage 
+ - [GamingOnLinux](https://www.gamingonlinux.com/articles/monitor-and-stress-test-your-linux-gaming-pc-with-gtkstresstesting.15854) 🇬🇧
+ - [OMG! Ubuntu! 🇬](https://www.omgubuntu.co.uk/2020/01/new-stress-test-linux-app) 🇬🇧
+ - [lffl](https://www.lffl.org/2020/01/gtkstresstesting-gst-tool.html) 🇮🇹
+ - [Świat Linuksa](https://www.youtube.com/watch?v=F0_giDR9pI4) 📺 🇵🇱
+ - [Manuel Cabrera Caballero](https://www.youtube.com/watch?v=Hh04ffSa7P0) 📺 🇪🇸
+ - [Diolinux](https://www.diolinux.com.br/2020/01/faca-teste-de-stress-no-linux-com-o-gtkstresstesting.html) 🇧🇷
+ - [Cerebrux](https://cerebrux.net/2020/01/29/gtkstresstesting-%CF%80%CE%B1%CF%81%CE%B1%CE%BA%CE%BF%CE%BB%CE%BF%CF%8D%CE%B8%CE%B7%CF%83%CE%B7-stress-test-cpu-ram/) 🇬🇷
 
 
 ## 📝 License

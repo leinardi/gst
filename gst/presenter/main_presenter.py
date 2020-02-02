@@ -43,9 +43,10 @@ from gst.interactor.stress_ng_interactor import StressNgInteractor
 from gst.model.stress_tests_result import StressTestsResult
 from gst.model.system_info import SystemInfo
 from gst.presenter.preferences_presenter import PreferencesPresenter
+from gst.repository.dmi_decode_repository import DmiDecodeRepositoryResult
 from gst.util.view import open_uri, get_default_application
 
-LOG = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 _ADD_NEW_PROFILE_INDEX = -10
 
 
@@ -92,6 +93,9 @@ class MainViewInterface:
     def get_stress_test_config(self) -> Tuple[str, int, int]:
         raise NotImplementedError()
 
+    def show_error_message_dialog(self, title: str, message: str) -> None:
+        raise NotImplementedError()
+
 
 @singleton
 class MainPresenter:
@@ -112,7 +116,7 @@ class MainPresenter:
                  check_new_version_interactor: CheckNewVersionInteractor,
                  composite_disposable: CompositeDisposable,
                  ) -> None:
-        LOG.debug("init MainPresenter ")
+        _LOG.debug("init MainPresenter ")
         self.main_view: MainViewInterface = MainViewInterface()
         self._system_info: SystemInfo = system_info
         self._preferences_presenter = preferences_presenter
@@ -144,7 +148,7 @@ class MainPresenter:
             operators.flat_map(self._load_lm_sensors),
             operators.observe_on(GtkScheduler(GLib)),
         ).subscribe(on_next=lambda _: (self.main_view.init_system_info(), self._start_refresh()),
-                    on_error=lambda e: LOG.exception(f"Refresh error: {str(e)}")))
+                    on_error=lambda e: _LOG.exception(f"Refresh error: {str(e)}")))
 
     def on_menu_settings_clicked(self, *_: Any) -> None:
         self._preferences_presenter.show()
@@ -164,8 +168,8 @@ class MainPresenter:
             operators.subscribe_on(self._scheduler),
             operators.flat_map(self._load_dmi_decode),
             operators.observe_on(GtkScheduler(GLib)),
-        ).subscribe(on_next=lambda _: self.main_view.init_system_info(),
-                    on_error=lambda e: LOG.exception(f"Refresh error: {str(e)}")))
+        ).subscribe(on_next=self._handle_read_all_result,
+                    on_error=lambda e: _LOG.exception(f"Refresh error: {str(e)}")))
 
     def on_stress_tests_toggle_button_clicked(self, *_: Any) -> None:
         if self._stress_ng_interactor.is_running():
@@ -173,7 +177,7 @@ class MainPresenter:
                 operators.subscribe_on(self._scheduler),
                 operators.observe_on(GtkScheduler(GLib)),
                 operators.finally_action(self._refresh_stress_tests_toggle_button)
-            ).subscribe(on_error=lambda e: LOG.exception(f"Stop stress test error: {str(e)}")))
+            ).subscribe(on_error=lambda e: _LOG.exception(f"Stop stress test error: {str(e)}")))
         else:
             self._toggle_chronometer(True)
             self.main_view.toggle_stress_tests_button(True)
@@ -191,10 +195,10 @@ class MainPresenter:
                     operators.observe_on(GtkScheduler(GLib)),
                     operators.finally_action(self._refresh_stress_tests_toggle_button)
                 ).subscribe(on_next=self.main_view.update_stress_tests_result,
-                            on_error=lambda e: LOG.exception(f"Start stress test error: {str(e)}")))
+                            on_error=lambda e: _LOG.exception(f"Start stress test error: {str(e)}")))
 
     def _start_refresh(self) -> None:
-        LOG.debug("start refresh")
+        _LOG.debug("start refresh")
         refresh_interval = self._settings_interactor.get_int('settings_refresh_interval')
         self._composite_disposable.add(rx.interval(refresh_interval, scheduler=self._scheduler).pipe(
             operators.map(lambda _: self._system_info),
@@ -204,7 +208,7 @@ class MainPresenter:
             operators.flat_map(self._load_psutil),
             operators.observe_on(GtkScheduler(GLib)),
         ).subscribe(on_next=lambda _: self.main_view.refresh_system_info(),
-                    on_error=lambda e: LOG.exception(f"Refresh error: {str(e)}")))
+                    on_error=lambda e: _LOG.exception(f"Refresh error: {str(e)}")))
 
     def on_physical_package_selected(self, widget: Any, *_: Any) -> None:
         index = widget.get_active()
@@ -223,7 +227,7 @@ class MainPresenter:
         self.main_view.open_bugs_dialog()
 
     def _log_exception_return_system_info_observable(self, ex: Exception, _: Observable) -> Observable:
-        LOG.exception(f"Err = {ex}")
+        _LOG.exception(f"Err = {ex}")
         self.main_view.set_statusbar_text(str(ex))
         observable = rx.just(self._system_info)
         assert isinstance(observable, Observable)
@@ -284,11 +288,33 @@ class MainPresenter:
             operators.subscribe_on(self._scheduler),
             operators.observe_on(GtkScheduler(GLib)),
         ).subscribe(on_next=self._handle_new_version_response,
-                    on_error=lambda e: LOG.exception(f"Check new version error: {str(e)}")))
+                    on_error=lambda e: _LOG.exception(f"Check new version error: {str(e)}")))
+
+    def _handle_read_all_result(self, result: DmiDecodeRepositoryResult) -> None:
+        if result == DmiDecodeRepositoryResult.SUCCESS:
+            self.main_view.init_system_info()
+            for index, bank_info in enumerate(self._system_info.memory_bank_info_list):
+                if bank_info.size and bank_info.size[0].isdigit():
+                    self.main_view.select_mem_bank(index)
+                    break
+            self.main_view.set_statusbar_text("Memory section updated")
+
+        elif result == DmiDecodeRepositoryResult.ERROR_DMI_DECODE_NOT_AVAILABLE:
+            self.main_view.show_error_message_dialog(
+                "dmidecode not available",
+                f"{APP_NAME} uses dmidecode to read the memory information.\n\n"
+                "Please make sure that dmidecode is correctly installed and that "
+                "the command \"pkexec dmidecode\" runs successfully."
+            )
+        else:
+            self.main_view.show_error_message_dialog(
+                "Error while running DmiDecode",
+                "Something went wrong while trying to run dmidecode. Check the console output for details."
+            )
 
     def _handle_generic_set_result(self, result: Any, name: str) -> bool:
         if not isinstance(result, bool):
-            LOG.exception(f"Set overclock error: {str(result)}")
+            _LOG.exception(f"Set overclock error: {str(result)}")
             self.main_view.set_statusbar_text(f'Error applying {name}! {str(result)}')
             return False
         if not result:
