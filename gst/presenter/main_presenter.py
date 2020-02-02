@@ -43,6 +43,7 @@ from gst.interactor.stress_ng_interactor import StressNgInteractor
 from gst.model.stress_tests_result import StressTestsResult
 from gst.model.system_info import SystemInfo
 from gst.presenter.preferences_presenter import PreferencesPresenter
+from gst.repository.dmi_decode_repository import DmiDecodeRepositoryResult
 from gst.util.view import open_uri, get_default_application
 
 _LOG = logging.getLogger(__name__)
@@ -90,6 +91,9 @@ class MainViewInterface:
         raise NotImplementedError()
 
     def get_stress_test_config(self) -> Tuple[str, int, int]:
+        raise NotImplementedError()
+
+    def show_error_message_dialog(self, title: str, message: str) -> None:
         raise NotImplementedError()
 
 
@@ -164,7 +168,7 @@ class MainPresenter:
             operators.subscribe_on(self._scheduler),
             operators.flat_map(self._load_dmi_decode),
             operators.observe_on(GtkScheduler(GLib)),
-        ).subscribe(on_next=lambda _: self.main_view.init_system_info(),
+        ).subscribe(on_next=self._handle_read_all_result,
                     on_error=lambda e: _LOG.exception(f"Refresh error: {str(e)}")))
 
     def on_stress_tests_toggle_button_clicked(self, *_: Any) -> None:
@@ -285,6 +289,22 @@ class MainPresenter:
             operators.observe_on(GtkScheduler(GLib)),
         ).subscribe(on_next=self._handle_new_version_response,
                     on_error=lambda e: _LOG.exception(f"Check new version error: {str(e)}")))
+
+    def _handle_read_all_result(self, result: DmiDecodeRepositoryResult) -> None:
+        if result == DmiDecodeRepositoryResult.SUCCESS:
+            self.main_view.init_system_info()
+        elif result == DmiDecodeRepositoryResult.ERROR_DMI_DECODE_NOT_AVAILABLE:
+            self.main_view.show_error_message_dialog(
+                "dmidecode not available",
+                f"{APP_NAME} uses dmidecode to read the memory information.\n\n"
+                "Please make sure that dmidecode is correctly installed and that "
+                "the command \"pkexec dmidecode\" runs successfully."
+            )
+        else:
+            self.main_view.show_error_message_dialog(
+                "Error while running DmiDecode",
+                "Something went wrong while trying to run dmidecode. Check the console output for details."
+            )
 
     def _handle_generic_set_result(self, result: Any, name: str) -> bool:
         if not isinstance(result, bool):

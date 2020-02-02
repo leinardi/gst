@@ -336,7 +336,7 @@ class MainView(MainViewInterface):
         self._set_entry_with_label_text('stress_bogo_tot', None if result.bogo_ops is None else str(result.bogo_ops))
         self._set_entry_with_label_text('stress_bopsust', None if result.bopsust is None else f"{result.bopsust:.2f}")
         if result.return_code and result.return_code != 2:
-            self.show_message_dialog(Gtk.ButtonsType.OK, "stress-ng error!", result.error)
+            self.show_error_message_dialog("stress-ng error!", result.error)
 
     def get_stress_test_config(self) -> Tuple[str, int, int]:
         return (self._stress_stressor_comboboxtext.get_active_id(),
@@ -566,6 +566,7 @@ class MainView(MainViewInterface):
         for index, mem_bank_info in enumerate(mem_bank_list):
             self._mem_bank_comboboxtext.insert(index, str(index),
                                                f"{mem_bank_info.locator} ({mem_bank_info.bank_locator})")
+
         if self._mem_bank_comboboxtext.get_active() == -1:
             self._mem_bank_comboboxtext.set_active(self._selected_mem_bank)
         self._mem_bank_comboboxtext.set_sensitive(
@@ -700,8 +701,8 @@ class MainView(MainViewInterface):
             levelbar.set_value(0)
             levelbar.set_sensitive(False)
 
-    def show_message_dialog(self, message_type: MessageType, title: str, message: str) -> None:
-        dialog = Gtk.MessageDialog(self._window, 0, Gtk.MessageType.ERROR, message_type, title)
+    def show_error_message_dialog(self, title: str, message: str) -> None:
+        dialog = Gtk.MessageDialog(self._window, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, title)
         dialog.format_secondary_text(message)
-        response = dialog.run()
+        dialog.run()
         dialog.destroy()
