@@ -46,15 +46,27 @@ Install the `gst` package from the AUR using your favourite helper, for example 
 
 
 ### Install from source code
-#### Dependencies for (K/X)Ubuntu 18.10 or newer
-```bash
-sudo apt install appstream-util dmidecode gir1.2-gtksource-3.0 git libcairo2-dev libgirepository1.0-dev libglib2.0-dev meson python3-gi-cairo python3-pip stress-ng
-```
+#### Build time dependencies
+| Dependency            | Arch Linux            | Fedora                      | Ubuntu                 |
+| --------------------- | --------------------- | --------------------------- | ---------------------- |
+| pkg-config            | pkg-config            | pkgconf-pkg-config          | pkg-config             |
+| Python 3.6+           | python                | python3                     | python3                |
+| gobject-introspection | gobject-introspection | gobject-introspection-devel | libgirepository1.0-dev |
+| meson                 | meson                 | meson                       | meson                  |
+| ninja-build           | ninja                 | ninja-build                 | ninja-build            |
+| appstream-util        | appstream-glib        | appstream-util              | appstream-util         |
 
-#### Dependencies for Fedora 28 or newer
-```bash
-dnf install desktop-file-utils dmidecode git gobject-introspection-devel gtk3-devel libappstream-glib meson python3-cairocffi python3-devel python3-pip redhat-rpm-config stress-ng
-```
+#### Run time dependencies
+| Dependency                         | Arch Linux                         | Fedora                             | Ubuntu                             |
+| ---------------------------------- | ---------------------------------- | -----------------------------------| ---------------------------------- |
+| Python 3.6+                        | python                             | python3                            | python3                            |
+| pip                                | python-pip                         | python3-pip                        | python3-pip                        |
+| gobject-introspection              | gobject-introspection              | gobject-introspection-devel        | libgirepository1.0-dev             |
+| lm-sensors                         | lm-sensors                         | lm-sensors                         | lm-sensors                         |
+| stress-ng                          | stress-ng                          | stress-ng                          | stress-ng                          |
+| dmidecode                          | dmidecode                          | dmidecode                          | dmidecode                          |
+
+plus all the Python dependencies listed in [requirements.txt](requirements.txt)
 
 #### Clone project and install
 If you have not installed GST yet:
@@ -132,26 +144,20 @@ It is possible to build the local source or the remote one (the same that Flathu
 flatpak run com.leinardi.gst --debug
 ```
 
-## 🖥️ How to build and run the source code
-If you want to clone the project and run directly from the source you need to manually install all the needed
-dependencies.
- 
-### (K/X)Ubuntu 18.04 or newer
-See [Install from source](https://gitlab.com/leinardi/gst#kxubuntu-1810-or-newer-dependencies)
-
-### Python dependencies
-```bash
-git clone --recurse-submodules -j4 https://gitlab.com/leinardi/gst.git
-cd gst
-pip3 install -r requirements.txt
-```
-
-### Build and Run
-```bash
-./run.sh
-```
-
 ## ❓ FAQ
+
+### The Flatpak version of GST is not using my theme, how can I fix it?
+To fix this issue install a Gtk theme from Flathub. This way, Flatpak applications will automatically pick the 
+installed Gtk theme and use that instead of Adwaita.
+
+Use this command to get a list of all the available Gtk themes on Flathub:
+```bash
+flatpak --user remote-ls flathub | grep org.gtk.Gtk3theme
+```
+And then just install your preferred theme. For example, to install Yaru:
+```
+flatpak install flathub org.gtk.Gtk3theme.Yaru
+```
 
 ### Where are the settings and profiles stored on the filesystem?
 | Installation type |                     Location                     |
