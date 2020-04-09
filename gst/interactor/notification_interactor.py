@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with gst.  If not, see <http://www.gnu.org/licenses/>.
 import logging
-from typing import Optional
 
 from gi.repository import Gio
 from injector import singleton, inject
@@ -33,7 +32,7 @@ class NotificationInteractor:
         pass
 
     @staticmethod
-    def show(title: str, body: Optional[str] = None) -> None:
+    def show(title: str, body: str = "") -> None:
         application = get_default_application()
         notification = Gio.Notification.new(title=title)
         notification.set_body(body)

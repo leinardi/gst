@@ -194,8 +194,16 @@ class MainPresenter:
                     operators.subscribe_on(self._scheduler),
                     operators.observe_on(GtkScheduler(GLib)),
                     operators.finally_action(self._refresh_stress_tests_toggle_button)
-                ).subscribe(on_next=self.main_view.update_stress_tests_result,
+                ).subscribe(on_next=self._on_stress_tests_result,
                             on_error=lambda e: _LOG.exception(f"Start stress test error: {str(e)}")))
+
+    def _on_stress_tests_result(self, result: StressTestsResult) -> None:
+        self.main_view.update_stress_tests_result(result)
+        if result.successful is not None:
+            if result.successful:
+                self._notify_interactor.show("✔ Successful run completed️")
+            else:
+                self._notify_interactor.show("❌ Unsuccessful run")
 
     def _start_refresh(self) -> None:
         _LOG.debug("start refresh")
