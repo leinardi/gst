@@ -1,5 +1,5 @@
-Version next
-============
+Version 0.7.2
+=============
 Released: 2020-04-09
 
  * Updated dependencies
