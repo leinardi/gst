@@ -50,7 +50,6 @@ class MainView(MainViewInterface):
                  presenter: MainPresenter,
                  preferences_view: PreferencesView,
                  builder: MainBuilder,
-                 notify_interactor: NotificationInteractor,
                  settings_interactor: SettingsInteractor,
                  system_info: SystemInfo
                  ) -> None:
@@ -59,7 +58,6 @@ class MainView(MainViewInterface):
         self._preferences_view = preferences_view
         self._presenter.main_view = self
         self._builder: Gtk.Builder = builder
-        self._notify_interactor = notify_interactor
         self._settings_interactor = settings_interactor
         self._system_info: SystemInfo = system_info
         self._first_refresh = True
@@ -324,10 +322,8 @@ class MainView(MainViewInterface):
             if result.successful:
                 self._stress_result_image.set_visible(True)
                 self._stress_result_image.set_from_icon_name(Gtk.STOCK_OK, Gtk.IconSize.SMALL_TOOLBAR)
-                self._notify_interactor.show("✔ Successful run completed️")
             else:
                 self._stress_result_image.set_from_icon_name(Gtk.STOCK_DIALOG_ERROR, Gtk.IconSize.SMALL_TOOLBAR)
-                self._notify_interactor.show("❌ Unsuccessful run")
         if result.elapsed is not None:
             elapsed = str(datetime.timedelta(seconds=result.elapsed))
             self._set_entry_with_label_text('stress_elapsed', elapsed[:-3] if elapsed[7] == '.' else elapsed)

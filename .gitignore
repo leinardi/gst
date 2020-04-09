@@ -15,6 +15,7 @@ __pycache__/
 !.idea/copyright/
 !.idea/fileTemplates/
 !.idea/inspectionProfiles/
+!.idea/scopes/
 !.idea/vcs.xml
 *.autosave
 /.mypy_cache/

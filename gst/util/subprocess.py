@@ -30,6 +30,7 @@ def check_if_command_is_available(command_name: str, check_on_host: bool = False
         command_name
     ]
 
+    # TODO check /usr/sbin/ too
     if check_on_host and is_flatpak():
         cmd = _FLATPAK_COMMAND_PREFIX + cmd
 

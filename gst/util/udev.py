@@ -14,17 +14,18 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with gst.  If not, see <http://www.gnu.org/licenses/>.
-
+import logging
 import os
 import shutil
 import subprocess
 from pathlib import Path
 
-from gst.util.log import LOG
 from gst.util.path import get_data_path
 
 UDEV_RULES_DIR = '/lib/udev/rules.d/'
 UDEV_RULE_FILE_NAME = '60-gst.rules'
+
+_LOG = logging.getLogger(__name__)
 
 
 def add_udev_rule() -> int:
