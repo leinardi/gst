@@ -27,7 +27,6 @@ class CpuInfo:
         self.clock_monitored_items: Dict[int, Dict[int, MonitoredItem]] = {}
 
     def get_processor(self, selected_processor: SelectedProcessor) -> Processor:
-
         physical_package_id = selected_processor[0]
         processor_id = selected_processor[1]
         if physical_package_id is not None and processor_id is not None:
