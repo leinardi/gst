@@ -1,6 +1,6 @@
-Version next
-============
-Released: 2020-05-29
+Version 0.7.3
+=============
+Released: 2020-05-30
 
  * Fixed #20: Fixed info not showing properly on multi socket system
 

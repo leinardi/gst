@@ -569,11 +569,11 @@ class MainView(MainViewInterface):
             len(mem_bank_list) > 1)
 
     def _setup_stress_workers_combobox(self) -> None:
-        threads = 0
-        for physical_package in self._system_info.cpu_info.physical_package_id_list:
-            processor: Processor = next(physical_package[index] for index in physical_package if index is not None)
-            threads += processor.threads
         if self._stress_workers_comboboxtext.get_model().iter_n_children() == 0:
+            threads = 0
+            for physical_package in self._system_info.cpu_info.physical_package_id_list:
+                processor: Processor = next(physical_package[index] for index in physical_package if index is not None)
+                threads += processor.threads
             self._stress_workers_comboboxtext.remove_all()
             self._stress_workers_comboboxtext.insert(0, str(threads), 'Workers: Auto')
             self._stress_workers_comboboxtext.set_active(0)
