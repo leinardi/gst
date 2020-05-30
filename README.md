@@ -42,7 +42,7 @@ flatpak run com.leinardi.gst
 Install the `gst` package from the AUR using your favourite helper, for example `yay -S gst`.
 
 #### Fedora
-[COPR package](https://copr.fedorainfracloud.org/coprs/atim/gst/): `sudo dnf copr enable atim/gst -y && sudo dnf install gst`
+[Official repo](https://src.fedoraproject.org/rpms/gst): `sudo dnf install gst`
 
 
 ### Install from source code
@@ -182,7 +182,7 @@ Thanks to:
 
  - Colin Ian King for the [stress-ng](https://kernel.ubuntu.com/git/cking/stress-ng.git/) CLI tool
  - @999eagle for maintaining the [AUR package](https://aur.archlinux.org/packages/gst/)
- - @tim74 for maintaining the [COPR package](https://copr.fedorainfracloud.org/coprs/atim/gst/)
+ - @tim74 for maintaining the [Fedora package](https://src.fedoraproject.org/rpms/gst)
  - all the people that helped testing and reported bugs
 
 ## 📰 Media coverage 

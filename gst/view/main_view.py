@@ -19,11 +19,9 @@ import logging
 import math
 from typing import Optional, Any, Dict, List, Tuple
 
-from gi.repository.Gst import MessageType
 from injector import inject, singleton
 from gi.repository import Gtk
 from gst.di import MainBuilder
-from gst.interactor.notification_interactor import NotificationInteractor
 from gst.interactor.settings_interactor import SettingsInteractor
 from gst.model import SelectedProcessor, CPU_FLAGS, CPU_BUGS
 from gst.model.cpu_info import CpuInfo
@@ -273,6 +271,9 @@ class MainView(MainViewInterface):
     def select_physical_package(self, physical_package_id: int) -> None:
         if physical_package_id != self._selected_processor[0]:
             self._selected_processor[0] = physical_package_id
+            physical_package = self._system_info.cpu_info.physical_package_id_list[physical_package_id]
+            index: int = next(index for index in physical_package if index is not None)
+            self._selected_processor[1] = index
             self.init_system_info()
 
     def select_mem_bank(self, mem_bank_id: int) -> None:
@@ -340,13 +341,13 @@ class MainView(MainViewInterface):
                 self._stress_timeout_comboboxtext.get_active_id())
 
     def _setup_physical_package_combobox(self, cpu_info: CpuInfo) -> None:
-        if len(self._cpu_physical_package_comboboxtext.get_children()) == 0:
+        if self._cpu_physical_package_comboboxtext.get_model().iter_n_children() == 0:
             for index in range(len(cpu_info.physical_package_id_list)):
                 self._cpu_physical_package_comboboxtext.append(str(index), f"Processor #{index}")
             if self._cpu_physical_package_comboboxtext.get_active() == -1:
                 self._cpu_physical_package_comboboxtext.set_active(self._selected_processor[0])
             self._cpu_physical_package_comboboxtext.set_sensitive(
-                len(self._cpu_physical_package_comboboxtext.get_children()) > 1)
+                self._cpu_physical_package_comboboxtext.get_model().iter_n_children() > 1)
 
     def _setup_flags_widgets(self, flags: Optional[List[str]]) -> None:
         self._set_entry_with_label_text('cpu_flags', filter_flags(flags))
@@ -418,7 +419,7 @@ class MainView(MainViewInterface):
             self._set_entry_with_label_text('cpu_specification', processor.specification)
             self._set_entry_with_label_text('cpu_threads', str(processor.threads))
             # self._set_label_text('cpu_clock', _('Clocks (Core #%(core_id)d)') % {'core_id': processor.processor_id})
-            self._setup_stress_workers_combobox(processor.threads)
+            self._setup_stress_workers_combobox()
         else:
             processor = cpu_info.get_processor(self._selected_processor)
         # self._set_entry_with_label_text('cpu_bus_speed', format_frequency(processor.bus_speed))
@@ -481,8 +482,8 @@ class MainView(MainViewInterface):
 
     def _update_clocks(self, init: bool = False) -> None:
         if init:
+            self._cpu_clocks_tree_store.clear()
             for physical_package_id, processor in self._system_info.cpu_info.clock_monitored_items.items():
-                self._cpu_clocks_tree_store.clear()
                 processor_row = self._cpu_clocks_tree_store.append(None, [physical_package_id,
                                                                           f"Processor {physical_package_id}",
                                                                           "", "", ""])
@@ -562,17 +563,22 @@ class MainView(MainViewInterface):
         for index, mem_bank_info in enumerate(mem_bank_list):
             self._mem_bank_comboboxtext.insert(index, str(index),
                                                f"{mem_bank_info.locator} ({mem_bank_info.bank_locator})")
-
         if self._mem_bank_comboboxtext.get_active() == -1:
             self._mem_bank_comboboxtext.set_active(self._selected_mem_bank)
         self._mem_bank_comboboxtext.set_sensitive(
             len(mem_bank_list) > 1)
 
-    def _setup_stress_workers_combobox(self, threads: int) -> None:
-        self._stress_workers_comboboxtext.insert(0, str(threads), 'Workers: Auto')
-        self._stress_workers_comboboxtext.set_active(0)
-        for index in range(1, threads + 1):
-            self._stress_workers_comboboxtext.insert(index, str(index), str(index))
+    def _setup_stress_workers_combobox(self) -> None:
+        if self._stress_workers_comboboxtext.get_model().iter_n_children() == 0:
+            threads = 0
+            for physical_package in self._system_info.cpu_info.physical_package_id_list:
+                processor: Processor = next(physical_package[index] for index in physical_package if index is not None)
+                threads += processor.threads
+            self._stress_workers_comboboxtext.remove_all()
+            self._stress_workers_comboboxtext.insert(0, str(threads), 'Workers: Auto')
+            self._stress_workers_comboboxtext.set_active(0)
+            for index in range(1, threads + 1):
+                self._stress_workers_comboboxtext.insert(index, str(index), str(index))
 
     def _on_stress_stressor_comboboxtext_changed(self, combobox: Gtk.ComboBoxText) -> None:
         sensitive = "benchmark" not in combobox.get_active_id()
