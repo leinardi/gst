@@ -19,7 +19,7 @@ from typing import Dict, Any
 APP_PACKAGE_NAME = "gst"
 APP_NAME = "GST"
 APP_ID = "com.leinardi.gst"
-APP_VERSION = "0.7.2"
+APP_VERSION = "0.7.3"
 APP_ICON_NAME = APP_ID
 APP_ICON_NAME_SYMBOLIC = APP_ID + "-symbolic"
 APP_DB_NAME = APP_PACKAGE_NAME + ".db"
