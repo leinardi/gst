@@ -32,6 +32,7 @@ APP_AUTHOR = 'Roberto Leinardi'
 APP_AUTHOR_EMAIL = 'roberto@leinardi.com'
 
 SETTINGS_DEFAULTS: Dict[str, Any] = {
+    'settings_check_new_version': False,
     'settings_refresh_interval': 2,
 }
 
