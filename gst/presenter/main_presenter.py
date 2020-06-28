@@ -138,7 +138,8 @@ class MainPresenter:
         self._chronometer_stop_time: Optional[float] = None
 
     def on_start(self) -> None:
-        self._check_new_version()
+        if self._settings_interactor.get_int('settings_check_new_version'):
+            self._check_new_version()
         self._composite_disposable.add(rx.just(self._system_info).pipe(
             operators.subscribe_on(self._scheduler),
             operators.flat_map(self._load_psutil),

@@ -47,24 +47,18 @@ Install the `gst` package from the AUR using your favourite helper, for example 
 
 ### Install from source code
 #### Build time dependencies
-| Dependency            | Arch Linux            | Fedora                      | Ubuntu                 |
-| --------------------- | --------------------- | --------------------------- | ---------------------- |
-| pkg-config            | pkg-config            | pkgconf-pkg-config          | pkg-config             |
-| Python 3.6+           | python                | python3                     | python3                |
-| gobject-introspection | gobject-introspection | gobject-introspection-devel | libgirepository1.0-dev |
-| meson                 | meson                 | meson                       | meson                  |
-| ninja-build           | ninja                 | ninja-build                 | ninja-build            |
-| appstream-util        | appstream-glib        | appstream-util              | appstream-util         |
+| Distro                | pkg-config         | Python 3.6+ | gobject-introspection       | meson | ninja-build | appstream-util |
+| --------------------- | ------------------ | ----------- | --------------------------- | ----- | ----------- | -------------- |
+| Arch Linux            | pkg-config         | python      | gobject-introspection       | meson | ninja       | appstream-glib |
+| Fedora                | pkgconf-pkg-config | python3     | gobject-introspection-devel | meson | ninja-build | appstream-util |
+| Ubuntu                | pkg-config         | python3     | libgirepository1.0-dev      | meson | ninja-build | appstream-util |
 
 #### Run time dependencies
-| Dependency                         | Arch Linux                         | Fedora                             | Ubuntu                             |
-| ---------------------------------- | ---------------------------------- | -----------------------------------| ---------------------------------- |
-| Python 3.6+                        | python                             | python3                            | python3                            |
-| pip                                | python-pip                         | python3-pip                        | python3-pip                        |
-| gobject-introspection              | gobject-introspection              | gobject-introspection-devel        | libgirepository1.0-dev             |
-| lm-sensors                         | lm-sensors                         | lm-sensors                         | lm-sensors                         |
-| stress-ng                          | stress-ng                          | stress-ng                          | stress-ng                          |
-| dmidecode                          | dmidecode                          | dmidecode                          | dmidecode                          |
+| Distro                | Python 3.6+ | pip         | gobject-introspection       | lm-sensors | stress-ng | dmidecode |
+| --------------------- | ----------- | ----------- | --------------------------- | ---------- | --------- | --------- |
+| Arch Linux            | python      | python-pip  | gobject-introspection       | lm-sensors | stress-ng | dmidecode |
+| Fedora                | python3     | python3-pip | gobject-introspection-devel | lm-sensors | stress-ng | dmidecode |
+| Ubuntu                | python3     | python3-pip | libgirepository1.0-dev      | lm-sensors | stress-ng | dmidecode |
 
 plus all the Python dependencies listed in [requirements.txt](requirements.txt)
 

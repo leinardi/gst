@@ -19,7 +19,7 @@ from typing import Dict, Any
 APP_PACKAGE_NAME = "gst"
 APP_NAME = "GST"
 APP_ID = "com.leinardi.gst"
-APP_VERSION = "0.7.3"
+APP_VERSION = "0.7.4"
 APP_ICON_NAME = APP_ID
 APP_ICON_NAME_SYMBOLIC = APP_ID + "-symbolic"
 APP_DB_NAME = APP_PACKAGE_NAME + ".db"
@@ -32,6 +32,7 @@ APP_AUTHOR = 'Roberto Leinardi'
 APP_AUTHOR_EMAIL = 'roberto@leinardi.com'
 
 SETTINGS_DEFAULTS: Dict[str, Any] = {
+    'settings_check_new_version': False,
     'settings_refresh_interval': 2,
 }
 

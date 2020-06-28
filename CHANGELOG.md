@@ -1,3 +1,10 @@
+Version 0.7.4
+=============
+Released: 2020-06-22
+
+ * Fixed #22: Disabled check for new App version on launch (it's now opt-in)
+ * Updated dependencies
+
 Version 0.7.3
 =============
 Released: 2020-05-30
