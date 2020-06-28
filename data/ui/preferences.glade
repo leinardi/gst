@@ -151,7 +151,7 @@ along with GST.  If not, see <http://www.gnu.org/licenses/>.
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <property name="hexpand">True</property>
-                                                <property name="label" translatable="yes" comments="Translators: This switch reverses the scrolling direction for mices. The term used comes from OS X so use the same translation if possible.">Check for new app version on launch</property>
+                                                <property name="label" translatable="yes" comments="Translators: This switch reverses the scrolling direction for mices. The term used comes from OS X so use the same translation if possible.">Check for new App version on launch</property>
                                                 <property name="use_underline">True</property>
                                                 <property name="xalign">0</property>
                                               </object>
@@ -164,7 +164,7 @@ along with GST.  If not, see <http://www.gnu.org/licenses/>.
                                               <object class="GtkLabel" id="settings_check_new_version_description_label">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="label" translatable="yes">Automatically check for a new app version on launch</property>
+                                                <property name="label" translatable="yes">Automatically check for a new App version on launch</property>
                                                 <property name="xalign">0</property>
                                                 <attributes>
                                                   <attribute name="scale" value="0.90000000000000002"/>
