@@ -113,6 +113,15 @@ class ProcCpuinfoRepository:
                 if value is not None:
                     processor.__setattr__(attr, value)
 
+        speed_average = 0.0
+        core_count = 0
+        for physical_package_id in system_info.cpu_info.clock_monitored_items.values():
+            for monitoredItem in physical_package_id.values():
+                core_count += 1
+                speed_average += monitoredItem.value
+        if core_count > 0:
+            system_info.cpu_info.speed_average = speed_average / core_count
+
         return system_info
 
     def _parse_data(self, label: str, temp_processor: Processor, value: str) -> None:

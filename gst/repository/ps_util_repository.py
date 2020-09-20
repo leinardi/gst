@@ -32,6 +32,7 @@ class PsUtilRepository:
     @synchronized_with_attr("_lock")
     def refresh(self, system_info: SystemInfo) -> SystemInfo:
         system_info.cpu_usage.cores = psutil.cpu_percent(percpu=True)
+        system_info.cpu_usage.average = psutil.cpu_percent(percpu=False)
         cpu_times_percent = psutil.cpu_times_percent()
         system_info.cpu_usage.user = cpu_times_percent.user
         system_info.cpu_usage.nice = cpu_times_percent.nice
@@ -44,9 +45,16 @@ class PsUtilRepository:
         system_info.cpu_usage.guest_nice = cpu_times_percent.guest_nice
         system_info.load_avg.load_avg_1, system_info.load_avg.load_avg_5, system_info.load_avg.load_avg_15 \
             = psutil.getloadavg()
+        system_info.load_avg.uptime = self._get_uptime()
         system_info.load_avg.cpu_count = psutil.cpu_count()
         virtual_memory = psutil.virtual_memory()
         system_info.mem_usage.total = virtual_memory.total
         system_info.mem_usage.available = virtual_memory.available
         system_info.mem_usage.percent = virtual_memory.percent
         return system_info
+
+    @staticmethod
+    def _get_uptime() -> float:
+        with open('/proc/uptime', 'r') as file:
+            uptime_seconds = float(file.readline().split()[0])
+            return uptime_seconds

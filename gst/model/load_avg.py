@@ -22,6 +22,7 @@ class LoadAvg:
         self.load_avg_1: Optional[float] = None
         self.load_avg_5: Optional[float] = None
         self.load_avg_15: Optional[float] = None
+        self.uptime: Optional[float] = None
         self.cpu_count: int = 1
 
     def get_loadavg_percentage(self, load_avg: float) -> float:
