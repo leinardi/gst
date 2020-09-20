@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with gst.  If not, see <http://www.gnu.org/licenses/>.
 import logging
+import re
 import threading
 from typing import List, Optional
 
@@ -31,6 +32,7 @@ _SHORT_NAME_AVERAGE = 'average'
 _SHORT_NAME_INPUT = 'input'
 _SENSOR_MIN_TEMP = -127
 _SENSOR_MAX_TEMP = 215
+_CLEAN_ITEM_NAME_REGEX = r"Voltage|Fan|Temperature|Power|Energy|Current|Humidity|"
 
 
 @singleton
@@ -48,7 +50,7 @@ class LmSensorsRepository:
                 subfeatures = list(sensors.SubFeatureIterator(chip, feature))  # get a list of all subfeatures
 
                 item_id = feature.name.decode("utf-8")
-                item_name = sensors.get_label(chip, feature)
+                item_name = self._clean_item_name_string(sensors.get_label(chip, feature))
                 item_value: Optional[float] = None
                 item_average_value: Optional[float] = None
                 item_type = sensors.FeatureType(feature.type)
@@ -97,3 +99,7 @@ class LmSensorsRepository:
     def _add_additional_value(additional_values: List[str], short_name: str, value: float) -> None:
         formatted_value = "{:.2f}".format(value).rstrip('0').rstrip('.')
         additional_values.append(f"{short_name}: {formatted_value}")
+
+    @staticmethod
+    def _clean_item_name_string(specification: str) -> str:
+        return ' '.join(re.sub(_CLEAN_ITEM_NAME_REGEX, '', specification, flags=re.IGNORECASE).split())

@@ -25,6 +25,7 @@ class CpuInfo:
     def __init__(self) -> None:
         self.physical_package_id_list: List[ProcessorDict] = []
         self.clock_monitored_items: Dict[int, Dict[int, MonitoredItem]] = {}
+        self.speed_average: Optional[float] = None
 
     def get_processor(self, selected_processor: SelectedProcessor) -> Processor:
         physical_package_id = selected_processor[0]

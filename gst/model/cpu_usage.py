@@ -20,6 +20,7 @@ from typing import List, Optional, Iterator
 class CpuUsage:
     def __init__(self) -> None:
         self.cores: List[float] = []
+        self.average: Optional[float] = None
         self.user: Optional[float] = None
         self.nice: Optional[float] = None
         self.system: Optional[float] = None

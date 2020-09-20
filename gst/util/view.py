@@ -228,5 +228,5 @@ def get_sensors_feature_type_name(feature_type: FeatureType) -> str:
     if feature_type == FeatureType.BEEP_ENABLE:
         return "Bitmask for beep"
     if feature_type == FeatureType.CLOCK:
-        return "Voltages"
+        return "Clock"
     return "Unknown"

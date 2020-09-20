@@ -37,7 +37,7 @@ from gst.conf import APP_PACKAGE_NAME, APP_NAME, APP_VERSION, APP_SOURCE_URL
 from gst.presenter.main_presenter import MainPresenter, MainViewInterface
 
 _LOG = logging.getLogger(__name__)
-_CORE_USAGE_MAX_PER_ROW = 16
+_CORE_USAGE_MAX_PER_ROW = 8
 
 
 @singleton
@@ -186,6 +186,10 @@ class MainView(MainViewInterface):
         self._cpu_core_usage_grid: Gtk.Grid = self._builder.get_object('cpu_core_usage_grid')
         self._cpu_core_usage_cores_levelbars: List[Gtk.LevelBar] = []
         self._cpu_core_usage_cores_labels: List[Gtk.Label] = []
+        self._cpu_usage_utilization_label: Gtk.Label = self._builder.get_object('cpu_usage_utilization_label')
+        self._cpu_usage_speed_label: Gtk.Label = self._builder.get_object('cpu_usage_speed_label')
+        self._cpu_usage_uptime_label: Gtk.Label = self._builder.get_object('cpu_usage_uptime_label')
+        self._cpu_loadavg_label: Gtk.Label = self._builder.get_object('cpu_loadavg_label')
         self._cpu_usage_user_label: Gtk.Label = self._builder.get_object('cpu_usage_user_label')
         self._cpu_usage_nice_label: Gtk.Label = self._builder.get_object('cpu_usage_nice_label')
         self._cpu_usage_system_label: Gtk.Label = self._builder.get_object('cpu_usage_system_label')
@@ -195,7 +199,6 @@ class MainView(MainViewInterface):
         self._cpu_usage_steal_label: Gtk.Label = self._builder.get_object('cpu_usage_steal_label')
         self._cpu_usage_guest_label: Gtk.Label = self._builder.get_object('cpu_usage_guest_label')
         self._cpu_usage_guest_nice_label: Gtk.Label = self._builder.get_object('cpu_usage_guest_nice_label')
-        self._cpu_loadavg_label: Gtk.Label = self._builder.get_object('cpu_loadavg_label')
         self._cpu_usage_user_levelbar: Gtk.LevelBar = self._builder.get_object('cpu_usage_user_levelbar')
         self._cpu_usage_nice_levelbar: Gtk.LevelBar = self._builder.get_object('cpu_usage_nice_levelbar')
         self._cpu_usage_system_levelbar: Gtk.LevelBar = self._builder.get_object('cpu_usage_system_levelbar')
@@ -459,8 +462,15 @@ class MainView(MainViewInterface):
                 self._cpu_core_usage_cores_levelbars[index].set_value(value)
 
         for attr, value in self._system_info.cpu_usage:
-            if attr != 'cores':
+            if attr != 'cores' and attr != 'average':
                 self._set_levelbar_with_label_text(f"cpu_usage_{attr}", None if value is None else f"{value}%", value)
+        self._cpu_usage_utilization_label.set_markup(
+            f"<span size=\"xx-large\">{self._system_info.cpu_usage.average:.1f}%</span>")
+        self._cpu_usage_speed_label.set_markup(
+            f"<span size=\"xx-large\">{format_frequency(self._system_info.cpu_info.speed_average)}</span>")
+        uptime = str(datetime.timedelta(seconds=int(self._system_info.load_avg.uptime)))[:-3]
+        self._cpu_usage_uptime_label.set_markup(
+            f"<span size=\"x-large\">{uptime}</span>")
         self._update_load_avg(self._cpu_loadavg1_entry,
                               self._system_info.load_avg.load_avg_1,
                               self._system_info.load_avg.get_loadavg_percentage(self._system_info.load_avg.load_avg_1))

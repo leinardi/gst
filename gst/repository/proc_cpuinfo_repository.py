@@ -29,8 +29,8 @@ from gst.util.concurrency import synchronized_with_attr
 from gst.util.sensors import FeatureType
 
 _LOG = logging.getLogger(__name__)
-PATH_PROC_CPUINFO = '/proc/cpuinfo'
-CLEAN_CPU_STRING_REGEX = r"chipset|company|components|computing|computer|corporation|communications|electronics|" \
+_PATH_PROC_CPUINFO = '/proc/cpuinfo'
+_CLEAN_CPU_STRING_REGEX = r"chipset|company|components|computing|computer|corporation|communications|electronics|" \
                          r"electrical|electric|gmbh|group|incorporation|industrial|international|\bnee\b|revision" \
                          r"|semiconductor|software|technologies|technology|ltd\.|<ltd>|\bltd\b|inc\.|<inc>|\binc\b" \
                          r"|intl\.|co\.|<co>|corp\.|<corp>|\(tm\)|\(r\)|®|\(rev ..\)|\'|\"|\sinc\s*$|@|cpu |cpu deca" \
@@ -64,15 +64,15 @@ class ProcCpuinfoRepository:
 
     @synchronized_with_attr("_lock")
     def refresh(self, system_info: SystemInfo) -> SystemInfo:
-        if not os.path.exists(PATH_PROC_CPUINFO):
-            _LOG.warning("%s not found", PATH_PROC_CPUINFO)
+        if not os.path.exists(_PATH_PROC_CPUINFO):
+            _LOG.warning("%s not found", _PATH_PROC_CPUINFO)
             return system_info
 
         try:
-            with open(PATH_PROC_CPUINFO, 'r') as file:
+            with open(_PATH_PROC_CPUINFO, 'r') as file:
                 output = file.read()
         except IOError:
-            _LOG.exception("Error while reading %s", PATH_PROC_CPUINFO)
+            _LOG.exception("Error while reading %s", _PATH_PROC_CPUINFO)
             return system_info
 
         # load data on a temp variable
@@ -113,6 +113,15 @@ class ProcCpuinfoRepository:
                 if value is not None:
                     processor.__setattr__(attr, value)
 
+        speed_average = 0.0
+        core_count = 0
+        for physical_package_id in system_info.cpu_info.clock_monitored_items.values():
+            for monitoredItem in physical_package_id.values():
+                core_count += 1
+                speed_average += monitoredItem.value
+        if core_count > 0:
+            system_info.cpu_info.speed_average = speed_average / core_count
+
         return system_info
 
     def _parse_data(self, label: str, temp_processor: Processor, value: str) -> None:
@@ -126,10 +135,10 @@ class ProcCpuinfoRepository:
                     temp_processor.bugs = sorted(value.strip().split())
                 else:
                     if name == 'specification':
-                        temp_processor.name = self.clean_cpu_string(value)
+                        temp_processor.name = self._clean_cpu_string(value)
                     value = labels[0](value)
                     temp_processor.__setattr__(name, value)
 
     @staticmethod
-    def clean_cpu_string(specification: str) -> str:
-        return ' '.join(re.sub(CLEAN_CPU_STRING_REGEX, '', specification, flags=re.IGNORECASE).split())
+    def _clean_cpu_string(specification: str) -> str:
+        return ' '.join(re.sub(_CLEAN_CPU_STRING_REGEX, '', specification, flags=re.IGNORECASE).split())
