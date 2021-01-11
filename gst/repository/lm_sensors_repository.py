@@ -78,8 +78,6 @@ class LmSensorsRepository:
                 elif item_average_value is not None:
                     self._add_additional_value(additional_values, _SHORT_NAME_AVERAGE, item_average_value)
 
-                if additional_values:
-                    item_name = "{} ({})".format(item_name, ", ".join(additional_values))
                 item = MonitoredItem(item_id, item_name, item_value, item_type)
                 system_info.hwmon.set_hw_monitored_item(chip_name, item)
         sensors.cleanup()
