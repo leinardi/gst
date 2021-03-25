@@ -4,6 +4,6 @@ peewee==3.13.3
 psutil==5.7.0
 PyGObject==3.36.1
 pyxdg==0.26
-PyYAML==5.3.1
+PyYAML==5.4
 requests==2.24.0
 Rx==3.1.0
