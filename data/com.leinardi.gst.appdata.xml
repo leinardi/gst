@@ -26,6 +26,13 @@
     <url type="bugtracker">https://gitlab.com/leinardi/gst/issues</url>
     <update_contact>roberto@leinardi.com</update_contact>
     <releases>
+        <release date="2022-04-01" version="0.7.6">
+            <description>
+                <ul>
+                    <li>Updated dependencies</li>
+                </ul>
+            </description>
+        </release>
         <release date="2021-03-28" version="0.7.5">
             <description>
                 <ul>
