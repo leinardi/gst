@@ -20,13 +20,13 @@ import multiprocessing
 import time
 from typing import Optional, Any, Tuple
 
-import rx
+import reactivex
 from gi.repository import GLib
 from injector import inject, singleton
-from rx import Observable, operators
-from rx.disposable import CompositeDisposable
-from rx.scheduler import ThreadPoolScheduler
-from rx.scheduler.mainloop import GtkScheduler
+from reactivex import Observable, operators
+from reactivex.disposable import CompositeDisposable
+from reactivex.scheduler import ThreadPoolScheduler
+from reactivex.scheduler.mainloop import GtkScheduler
 
 from gst.conf import APP_NAME, APP_SOURCE_URL, APP_VERSION, APP_ID
 from gst.interactor.check_new_version_interactor import CheckNewVersionInteractor
@@ -140,7 +140,7 @@ class MainPresenter:
     def on_start(self) -> None:
         if self._settings_interactor.get_int('settings_check_new_version'):
             self._check_new_version()
-        self._composite_disposable.add(rx.just(self._system_info).pipe(
+        self._composite_disposable.add(reactivex.just(self._system_info).pipe(
             operators.subscribe_on(self._scheduler),
             operators.flat_map(self._load_psutil),
             operators.flat_map(self._load_proc_cpuinfo),
@@ -165,7 +165,7 @@ class MainPresenter:
         get_default_application().quit()
 
     def on_read_all_button_clicked(self, *_: Any) -> None:
-        self._composite_disposable.add(rx.just(self._system_info).pipe(
+        self._composite_disposable.add(reactivex.just(self._system_info).pipe(
             operators.subscribe_on(self._scheduler),
             operators.flat_map(self._load_dmi_decode),
             operators.observe_on(GtkScheduler(GLib)),
@@ -209,7 +209,7 @@ class MainPresenter:
     def _start_refresh(self) -> None:
         _LOG.debug("start refresh")
         refresh_interval = self._settings_interactor.get_int('settings_refresh_interval')
-        self._composite_disposable.add(rx.interval(refresh_interval, scheduler=self._scheduler).pipe(
+        self._composite_disposable.add(reactivex.interval(refresh_interval, scheduler=self._scheduler).pipe(
             operators.map(lambda _: self._system_info),
             operators.subscribe_on(self._scheduler),
             operators.flat_map(self._load_proc_cpuinfo),
@@ -238,7 +238,7 @@ class MainPresenter:
     def _log_exception_return_system_info_observable(self, ex: Exception, _: Observable) -> Observable:
         _LOG.exception(f"Err = {ex}")
         self.main_view.set_statusbar_text(str(ex))
-        observable = rx.just(self._system_info)
+        observable = reactivex.just(self._system_info)
         assert isinstance(observable, Observable)
         return observable
 

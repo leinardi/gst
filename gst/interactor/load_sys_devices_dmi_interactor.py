@@ -16,9 +16,9 @@
 # along with gst.  If not, see <http://www.gnu.org/licenses/>.
 import logging
 
-import rx
+import reactivex
 from injector import singleton, inject
-from rx import Observable
+from reactivex import Observable
 
 from gst.model.system_info import SystemInfo
 from gst.repository.sys_devices_dmi_repository import SysDevicesDmiRepository
@@ -33,4 +33,4 @@ class LoadSysDevicesDmiInteractor:
         self._sys_devices_dmi_repository = sys_devices_dmi_repository
 
     def execute(self, system_info: SystemInfo) -> Observable:
-        return rx.defer(lambda _: rx.just(self._sys_devices_dmi_repository.refresh(system_info)))
+        return reactivex.defer(lambda _: reactivex.just(self._sys_devices_dmi_repository.refresh(system_info)))

@@ -16,9 +16,9 @@
 # along with gst.  If not, see <http://www.gnu.org/licenses/>.
 import logging
 
-import rx
+import reactivex
 from injector import singleton, inject
-from rx import Observable
+from reactivex import Observable
 
 from gst.repository.stress_ng_repository import StressNgRepository
 
@@ -32,11 +32,11 @@ class StressNgInteractor:
         self._stress_ng_repository = stress_ng_repository
 
     def execute(self, stressor_command: str, workers: int, timeout: int, verify: bool) -> Observable:
-        return rx.defer(
-            lambda _: rx.just(self._stress_ng_repository.execute(stressor_command, workers, timeout, verify)))
+        return reactivex.defer(
+            lambda _: reactivex.just(self._stress_ng_repository.execute(stressor_command, workers, timeout, verify)))
 
     def is_running(self) -> bool:
         return self._stress_ng_repository.is_running()
 
     def terminate(self) -> Observable:
-        return rx.defer(lambda _: rx.just(self._stress_ng_repository.terminate()))
+        return reactivex.defer(lambda _: reactivex.just(self._stress_ng_repository.terminate()))

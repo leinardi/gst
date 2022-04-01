@@ -54,11 +54,11 @@ Install the `gst` package from the AUR using your favourite helper, for example 
 | Ubuntu                | pkg-config         | python3     | libgirepository1.0-dev      | meson | ninja-build | appstream-util |
 
 #### Run time dependencies
-| Distro                | Python 3.6+ | pip         | gobject-introspection       | lm-sensors | stress-ng | dmidecode |
-| --------------------- | ----------- | ----------- | --------------------------- | ---------- | --------- | --------- |
-| Arch Linux            | python      | python-pip  | gobject-introspection       | lm-sensors | stress-ng | dmidecode |
-| Fedora                | python3     | python3-pip | gobject-introspection-devel | lm-sensors | stress-ng | dmidecode |
-| Ubuntu                | python3     | python3-pip | libgirepository1.0-dev      | lm-sensors | stress-ng | dmidecode |
+| Distro                | Python 3.6+ | pip         | gobject-introspection       | lm-sensors | stress-ng | dmidecode | python3-cairo |
+| --------------------- | ----------- | ----------- | --------------------------- | ---------- | --------- | --------- | --------- |
+| Arch Linux            | python      | python-pip  | gobject-introspection       | lm-sensors | stress-ng | dmidecode | python-cairo |
+| Fedora                | python3     | python3-pip | gobject-introspection-devel | lm-sensors | stress-ng | dmidecode | python3-cairo-devel |
+| Ubuntu                | python3     | python3-pip | libgirepository1.0-dev      | lm-sensors | stress-ng | dmidecode | python3-cairo-dev |
 
 plus all the Python dependencies listed in [requirements.txt](requirements.txt)
 
@@ -68,10 +68,10 @@ If you have not installed GST yet:
 git clone --recurse-submodules -j4 https://gitlab.com/leinardi/gst.git
 cd gst
 git checkout release
-pip3 install -r requirements.txt
+sudo -H pip3 install -r requirements.txt
 meson . build --prefix /usr
 ninja -v -C build
-ninja -v -C build install
+sudo ninja -v -C build install
 ```
 
 #### Update old installation
@@ -83,10 +83,10 @@ git checkout release
 git reset --hard origin/release
 git submodule init
 git submodule update
-pip3 install -r requirements.txt
+sudo -H pip3 install -r requirements.txt
 meson . build --prefix /usr
 ninja -v -C build
-ninja -v -C build install
+sudo ninja -v -C build install
 ```
 
 #### Run

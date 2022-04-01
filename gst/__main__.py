@@ -26,7 +26,7 @@ from typing import Type
 from os.path import abspath, join, dirname
 from peewee import SqliteDatabase
 from gi.repository import GLib
-from rx.disposable import CompositeDisposable
+from reactivex.disposable import CompositeDisposable
 
 from gst.conf import APP_PACKAGE_NAME
 from gst.model.setting import Setting
