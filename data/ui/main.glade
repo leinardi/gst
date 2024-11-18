@@ -366,6 +366,7 @@ along with gst.  If not, see <http://www.gnu.org/licenses/>.
                                               <item id="18000" translatable="yes">5 hours</item>
                                               <item id="36000" translatable="yes">10 hours</item>
                                               <item id="86400" translatable="yes">24 hours</item>
+                                              <item id="0" translatable="yes">Forever</item>
                                             </items>
                                           </object>
                                           <packing>
