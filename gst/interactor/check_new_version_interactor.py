@@ -17,13 +17,13 @@
 
 import json
 import logging
-from distutils.version import LooseVersion
+from packaging.version import Version
 from typing import Optional
 
 import requests
-import rx
+import reactivex
 from injector import singleton, inject
-from rx import Observable
+from reactivex import Observable
 
 from gst.conf import APP_ID, APP_VERSION
 
@@ -39,13 +39,13 @@ class CheckNewVersionInteractor:
         pass
 
     def execute(self) -> Observable:
-        return rx.defer(lambda _: rx.just(self._check_new_version()))
+        return reactivex.defer(lambda _: reactivex.just(self._check_new_version()))
 
-    def _check_new_version(self) -> Optional[LooseVersion]:
+    def _check_new_version(self) -> Optional[Version]:
         req = requests.get(self.URL_PATTERN.format(package=APP_ID))
-        version = LooseVersion("0")
+        version = Version("0")
         if req.status_code == requests.codes.ok:
             j = json.loads(req.text)
             current_release_version = j.get('currentReleaseVersion', "0.0.0")
-            version = LooseVersion(current_release_version)
-        return version if version > LooseVersion(APP_VERSION) else None
+            version = Version(current_release_version)
+        return version if version > Version(APP_VERSION) else None
