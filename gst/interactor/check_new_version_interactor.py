@@ -17,7 +17,7 @@
 
 import json
 import logging
-from distutils.version import LooseVersion
+from packaging.version import Version
 from typing import Optional
 
 import requests
@@ -41,11 +41,11 @@ class CheckNewVersionInteractor:
     def execute(self) -> Observable:
         return reactivex.defer(lambda _: reactivex.just(self._check_new_version()))
 
-    def _check_new_version(self) -> Optional[LooseVersion]:
+    def _check_new_version(self) -> Optional[Version]:
         req = requests.get(self.URL_PATTERN.format(package=APP_ID))
-        version = LooseVersion("0")
+        version = Version("0")
         if req.status_code == requests.codes.ok:
             j = json.loads(req.text)
             current_release_version = j.get('currentReleaseVersion', "0.0.0")
-            version = LooseVersion(current_release_version)
-        return version if version > LooseVersion(APP_VERSION) else None
+            version = Version(current_release_version)
+        return version if version > Version(APP_VERSION) else None

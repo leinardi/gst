@@ -1,9 +1,10 @@
 humanfriendly==10.0
-injector==0.21.0
-peewee==3.16.3
-psutil==5.9.5
-PyGObject==3.44.1
+injector==0.22.0
+packaging==24.1
+peewee==3.17.8
+psutil==6.1.0
+PyGObject==3.50.0
 pyxdg==0.28
-PyYAML==6.0.1
-requests==2.31.0
+PyYAML==6.0.2
+requests==2.32.3
 reactivex==4.0.4
