@@ -1,10 +1,10 @@
+# Update with pur -r requirements.txt
 humanfriendly==10.0
-injector==0.22.0
-packaging==24.1
-peewee==3.17.8
-psutil==6.1.0
-PyGObject==3.50.0
+injector==0.24.0
+peewee==3.19.0
+psutil==7.2.1
+#pygobject==3.54.5
 pyxdg==0.28
-PyYAML==6.0.2
-requests==2.32.3
-reactivex==4.0.4
+pyyaml==6.0.3
+reactivex==4.1.0
+requests==2.32.5
